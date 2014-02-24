@@ -1,0 +1,26 @@
+.markdown_editor textarea {
+    /*width:680px;*/
+    height:200px;
+    font-size:12px;
+    line-height: 1.5;
+    margin-top:5px;
+}
+
+.form-horizontal .control-label {
+    width:130px;
+    text-align: left;
+}
+
+.form-horizontal .controls {
+  *padding-left: 20px;
+  margin-left: 150px;
+}
+
+#content.fullScreen {
+    font-size: 16px !important;
+    height:98%;
+    color:#000;
+    padding:100px 50px;
+    width:960px;
+    margin:0 auto;
+}

@@ -1,0 +1,19 @@
+{% for comment in page.pagecomment_set.all|dictsort:"create_time" %}
+    <div class="comment comment_border_top">
+        <a name="comment_{{ comment.id }}"></a>
+        <span style="white-space:pre-wrap;">{{ comment.content|escape|urlize }}</span>
+        <span style="font-size:11px;color:#888;">
+            -
+            {% if comment.user %}
+                <a href="/profile/{{ comment.user.id }}">{{ comment.user.first_name }}</a>,
+            {% else %}
+                {{ comment.name }},
+            {% endif %}
+            {{ comment.create_time }}
+            {% if comment.user == user %}
+                , <a href="/page/comment/edit/{{ comment.id }}">수정</a>
+                , <a href="javascript:remove_comment('{{ comment.id }}')">삭제</a>
+            {% endif %}
+        </span>
+    </div>
+{% endfor %}

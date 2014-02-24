@@ -1,0 +1,7 @@
+.markdown_editor textarea {
+    width:680px;
+    height:300px;
+    font-size:12px;
+    line-height: 1.5;
+    font-family: "굴림체",Monaco, Menlo, Consolas, "Courier New", monospace;
+}

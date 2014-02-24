@@ -1,0 +1,9 @@
+{% load staticfiles %}
+{% load markup %}
+
+<link type="text/css" href="{% static "highlight.js/styles/default.css" %}" rel="stylesheet"  media="screen" />
+<link type="text/css" href="{% static "book/css/markdown.css" %}" rel="stylesheet"  media="screen" />
+
+<div class="page-content">
+    {{ preview_content|markdown:"tables,footnotes,toc,fenced_code" }}
+</div>

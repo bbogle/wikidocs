@@ -1,0 +1,37 @@
+<div id="_toc" style="display:none;">
+    <div class="toc toc-edit{% if request.mobile %} hide toggle-toc{% endif %}">
+        <div class="toc-subject">
+            <a class="selected_toc" href="/edit/book/{{ book.id }}">{{ book.subject }}</a>
+            {% if book.open_yn == "N" %}
+            <i class="glyphicon glyphicon-lock"></i>
+            {% endif %}
+        </div>
+        <ul style="overflow-y:auto;" id="edit_toc_box">
+            {% for toc_page in toc %}
+            <li class="{% if toc_page == page %}selected_toc_li{% endif %}">
+                <a href="/edit/page/{{ toc_page.id }}" class="{% if toc_page == page %}selected_toc{% endif %}">
+                    <span style="width:220px;white-space:nowrap;overflow:hidden;display:block;" title="{{ toc_page.subject }}">
+                        <span style="padding-left:{{ toc_page.subject_margin }}px">
+                        {% if toc_page.open_yn == "N" %}
+                        <i class="glyphicon glyphicon-lock"></i>
+                        {% endif %}
+                        {{ toc_page.subject }}
+                        </span>
+                    </span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="/edit/page/new/{{ book.id }}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus"></i> 페이지 추가</a>
+
+    {% if request.mobile %}
+    <div style="margin:10px 0 10px 0">
+        <button class="btn btn-default btn-sm" id="show_toc_btn"><i class="glyphicon glyphicon-folder-open"></i> 목차 펼치기</button>
+    </div>
+    {% endif %}
+
+</div>
+
+<input type="hidden" name="request_mobile" id="request_mobile" value="{% if request.mobile %}1{% else %}0{% endif %}" />

@@ -1,0 +1,297 @@
+body, input, select {
+    font-family: "Malgun Gothic";
+    /*color: #000;*/
+}
+
+textarea {
+    font-size:12px !important;
+    font-family: "굴림체",Monaco, Menlo, Consolas, "Courier New", monospace;
+}
+
+.navbar-inner {
+    /*height:55px;*/
+}
+
+blockquote {
+    margin:0 !important;
+    padding:5px 0;
+    border:solid 1px #ddd;
+
+    border-left:solid 6px #ddd;
+    background-color: #fcfcfc;
+}
+blockquote p {
+	/*background-color: #F7F7F9;*/
+    padding:5px 10px !important;
+    font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,"맑은고딕",'Malgun Gothic';
+    font-size:13px !important;
+    overflow-x:auto;
+    padding:0;
+    margin-bottom:20px;
+    display:block;
+    line-height:180%;
+    color:#333;
+}
+
+.menu-nav {
+    margin:0 !important;
+    padding:0 !important;
+    font-family: Consolas;
+    font-size: 18px;
+}
+.menu-btn {
+    margin-top:7px !important;
+}
+
+#logout_btn {
+    margin-left:5px;
+}
+
+/*index*/
+.index {
+    margin:30px 0 50px 0;
+}
+.book-item {
+    /*margin:20px;*/
+    /*margin-bottom:30px;*/
+}
+.book-detail {
+    color: #808080;
+    line-height: 1.8;
+    font-size:14px;
+}
+
+.book-image-box {
+    width:110px;
+    height:140px;
+
+    margin-right:20px;
+    border: solid 1px #ccc;
+    padding:5px;
+
+    /*margin-left:-10px;*/
+    /*vertical-align: middle;*/
+    /*text-align: center;*/
+
+    position:relative;
+}
+
+.book-image {
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    /*vertical-align: middle;*/
+    text-align: center;
+}
+
+.book-subject {
+    font-size:16px;
+    font-weight: bold;
+    margin-top:0;
+    color: #4183C4;
+}
+.book-author {
+    margin-top:10px;
+    /*color:#333;*/
+}
+.book-time {
+    /*color:#aaa;*/
+    /*font-size:12px;*/
+}
+
+.navbar-brand {
+    /*color: #fff !important;*/
+    font-family: Consolas;
+    /*padding-left:0;*/
+}
+
+/* book */
+.recent_page_comments {
+    margin-top:20px;
+}
+
+/*page*/
+.content {
+    /*margin-top:20px;*/
+    margin-bottom:20px;
+}
+.content h1, h2, h3, h4, h5, h6 {
+    font-family: "Malgun Gothic";
+}
+
+.toc {
+    /*background-color: #f9f9f9;*/
+    /*padding:10px;*/
+    border:solid 1px #ccc;
+    font-size:12px;
+    margin-bottom: 10px;
+    /*-webkit-border-radius: 4px;*/
+    /*-moz-border-radius: 4px;*/
+    /*border-radius: 4px;*/
+}
+.toc-edit {
+    background-color: #f9f9f9;
+}
+.toc-subject {
+    /*background-color: #f9f9f9;*/
+    color: #003bb3;
+    font-size:14px;
+    font-weight:bold;
+    padding: 10px 15px 0 15px;
+    /*padding:10px;*/
+    /*margin:5px 5px 10px 5px;*/
+
+    /*display:inline-block;*/
+    border-bottom:1px solid #ccc;
+    padding-bottom:10px;
+}
+.toc ul {
+    margin:0;
+    padding:10px;
+}
+.toc li {
+    list-style: none;
+    margin:10px;
+}
+.selected_toc {
+    font-weight: bold;
+    color: #003bb3;
+    /*text-decoration: underline;*/
+}
+
+.toc-open {
+    background-color: #f2f2f2;
+    padding:5px;
+    /*margin-top:10px;*/
+}
+
+.book-info {
+    margin:20px 0 15px 0;
+    /*font-size: 12px;*/
+    color:#808080;
+}
+
+.page {
+}
+
+.page-book-subject {
+    color:#fff;
+    /*font-weight: bold;*/
+    font-size:16px;
+    margin-top:7px;
+}
+
+.page-subject {
+    margin-top:0;
+    padding-bottom:10px;
+    border-bottom: solid 1px #666;
+}
+
+.page-prev-next {
+    /*background-color: #f9f9f9;*/
+    padding:10px 0 10px 0;
+    border-top:solid 1px #666;
+    margin-top:20px;
+    font-size: 12px;
+}
+.page-prev-next ul {
+    margin:0;
+    padding:0;
+}
+.page-prev-next li {
+    list-style: none;
+    margin:5px 5px 5px 0;
+}
+
+.footer {
+    border-top: solid 1px #f2f2f2;
+    margin-top:30px;
+    margin-bottom:30px;
+    padding-top:10px;
+
+    font-size:12px;
+}
+
+
+/*comments*/
+.user_comments {
+    /*display:none;*/
+}
+.comments, .pages {
+    /*border-top:solid 1px #666;*/
+    margin:10px 0 5px 0;
+    /*background-color: #fcfcfc;*/
+}
+.comments .comment, .pages .comment {
+    font-size:12px;
+    color:#333;
+    margin:0;
+    padding:10px 0;
+    /*border-bottom:solid 1px #333;*/
+}
+.comment_border_top {
+    border-top:dotted 1px #ccc;
+}
+.comment_border_bottom {
+    border-bottom:dotted 1px #ccc;
+}
+
+/* markdown toc */
+.page .toc {
+    background: #fefefe;
+    border:dotted 1px #ccc;
+    font-size:12px;
+    padding:10px;
+    /*display: inline-block;*/
+}
+.page .toc ul {
+    padding:5px;
+    margin:0;
+}
+
+.page .toc li {
+    list-style: decimal;
+    margin: 0 0 0 20px;
+    padding-bottom:5px;
+}
+
+.footnote {
+    font-size:12px;
+}
+
+.toc-area {
+    /*padding-bottom:10px;*/
+}
+
+.toc-area::-webkit-scrollbar {
+    /*display: none;*/
+}
+.toc-area::-webkit-scrollbar {
+    width: 5px;
+}
+
+.toc-area::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.toc-area::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+
+.nano { background: #bba; width: 500px; height: 500px; }
+.nano .content { padding: 10px; }
+.nano .pane   { background: #888; }
+.nano .slider { background: #111; }
+
+.back-to-top {
+    position:fixed;
+    bottom: 1em;
+    right: 1em;
+
+}

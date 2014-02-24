@@ -1,0 +1,94 @@
+% !TEX TS-program = pdflatex
+
+\documentclass{book}
+\usepackage[paperwidth=182mm, paperheight=257mm, hmarginratio=1:1]{geometry}
+
+\usepackage[hangul,nonfrench,finemath]{kotex}
+
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+
+% hyperref 설정
+\usepackage[unicode, colorlinks, breaklinks, bookmarks, pdftex]{hyperref}
+\hypersetup {
+  pdftitle={$title$},
+  pdfauthor={$author$},
+  linkcolor=black
+}
+
+% 한글 설정들
+\usepackage[default]{dhucs-interword}
+\usehangulfontspec{ut}
+\usepackage[hangul]{dhucs-setspace}
+\usepackage{dhucs-gremph}
+
+% ??
+\usepackage{amsmath,amssymb}
+
+% 이미지 삽입을 위해 필요
+\usepackage{graphicx}
+
+% 테이블 기능
+\usepackage{longtable}
+
+% 단락시작시 들여쓰기 방지
+\usepackage{parskip}
+
+% 목차 번호 방지
+\setcounter{secnumdepth}{0}
+\let\stdsection\section
+\renewcommand\section{\newpage\stdsection}
+
+% 한글폰트 변경하기?
+%\SetHangulFonts{Daum_Regular}{NanumGothic}{NanumGothicCoding}
+
+
+% PDF 제목, 저자 추가하기
+\usepackage{etoolbox}
+\makeatletter
+\AtBeginDocument{
+  \hypersetup{
+    pdftitle = {\@title},
+    pdfauthor = {\@author}
+  }
+}
+\makeatother
+\title{BOOK_SUBJECT}
+\author{BOOK_AUTHOR}
+
+
+% 목차는 2depth만 표시되도록
+\setcounter{tocdepth}{2}
+
+\tocloftpagestyle{empty}
+
+\begin{document}
+
+  \pagestyle{empty}
+
+  %\vspace*{\fill}
+  %  \begin{center}
+  %    \includegraphics[width=0.7\textwidth]{TITLE}
+  %  \end{center}
+  %\vspace*{\fill}
+
+  % 제목과 저자 그리고 날짜
+  \maketitle
+
+  % 목차
+  \tableofcontents
+
+  % 페이징
+  \pagestyle{fancy}
+  % Delete the current section for header and footer
+  \fancyhf{}
+  % Set custom header
+  \lhead[]{\thepage}
+  \rhead[\thepage]{}
+  % Set arabic (1,2,3...) page numbering
+  \pagenumbering{arabic}
+
+  % Book contents
+  $body$
+
+\end{document}

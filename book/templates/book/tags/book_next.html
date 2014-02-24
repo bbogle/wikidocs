@@ -1,0 +1,5 @@
+<ul>
+    {% if first_page %}
+        <li><strong>다음글</strong> : <a href="{{ first_page.get_absolute_url }}">{{ first_page }}</a></li>
+    {% endif %}
+</ul>

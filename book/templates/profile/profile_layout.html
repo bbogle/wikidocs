@@ -1,0 +1,27 @@
+{% extends "book/base.html" %}
+
+{% load staticfiles %}
+
+{% block css %}
+    <link type="text/css" href="{% static "common/css/sidenav.css" %}" rel="stylesheet"/>
+{% endblock %}
+{% block edit_css %}{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static "common/js/sidenav.js" %}"></script>
+{% endblock %}
+{% block edit_js %}{% endblock %}
+
+{% block content %}
+    <div class="content row">
+        <div class="col-md-3">
+            {% block profile_menu %}
+                {% include "profile/profile_menu.html" %}
+            {% endblock %}
+        </div>
+        <div class="page col-md-9" id="profile_edit_content">
+            {% block profile_edit_content %}{% endblock %}
+        </div>
+
+    </div>
+{% endblock %}

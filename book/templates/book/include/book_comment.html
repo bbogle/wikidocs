@@ -1,0 +1,12 @@
+{% for comment in book.bookcomment_set.all|dictsort:"create_time" %}
+    <div class="comment comment_border_top">
+
+        <span style="white-space:pre-wrap;">{{ comment.content|escape|urlize }}</span>
+        <span style="font-size:11px;color:#888;">
+            - {{ comment.user.first_name }}, 약 {{ comment.create_time|timesince }} 전
+            {% if comment.user == user %}
+            , <a href="javascript:remove_comment('{{ comment.id }}')">삭제</a>
+            {% endif %}
+        </span>
+    </div>
+{% endfor %}

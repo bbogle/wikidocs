@@ -1,0 +1,60 @@
+{% extends "book/base.html" %}
+
+{% load humanize %}
+{% load staticfiles %}
+{% load markup %}
+
+{% block title %}{{ book.subject }} - 구매신청완료{% endblock %}
+
+{% block css %}
+<link type="text/css" href="{% static  "apprise/apprise.min.css" %}" rel="stylesheet"  />
+<link type="text/css" href="{% static "book/css/buy.css" %}" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static "apprise/apprise-1.5.min.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+<h3 style="margin-top:0;font-weight:bold;">전자책(E-Book) 구매신청이 완료되었습니다.</h3>
+<div class="alert buy-info">
+    <p>
+        입금 확인 후 <strong>{{ book.subject }}</strong> 전자책(PDF, EPUB, MOBI)을 메일로 발송 해 드립니다. <br />
+        (이메일이 도착하지 않은 경우 스팸함도 확인해 주세요)
+    </p>
+    <hr style="border-top-color:#ddd;"/>
+    <dl class="dl-horizontal">
+        <dt>가 격 :</dt>
+        <dd><strong>{{ book.price|intcomma }}원</strong></dd>
+        <dt>입금계좌 : </dt>
+        <dd><strong>국민은행 822-21-0456-971 (예금주: 박응용)</strong></dd>
+        <dt>입금자명 : </dt>
+        <dd>은행거래시 입금자명에는 "이름 + 전화번호 뒤 네자리"를 입력해주세요.</dd>
+        <dd>(예: 성함이 홍길동이고 전화번호가 010-1234-5678일 경우 "홍길동5678")</dd>
+    </dl>
+    <hr style="border-top-color:#ddd;"/>
+    <p>※ 아직 시범 서비스이기에 현금 결제만 가능하니 이해해 주시면 감사하겠습니다.</p>
+
+</div>
+
+<div>
+    <table class="table table-bordered">
+        <tr>
+            <th style="width:150px">신청자 이름</th>
+            <td>{{ buy.buyer }}</td>
+        </tr>
+        <tr>
+            <th style="width:150px">이메일</th>
+            <td>{{ buy.email }}</td>
+        </tr>
+        <tr>
+            <th style="width:150px">전화번호</th>
+            <td>{{ buy.telno }}</td>
+        </tr>
+    </table>
+    <p>
+        ※ 입금 후 24시간 내로 이메일이 도착하지 않을 경우 pahkey@gmail.com 으로 문의 해 주시면 신속하게 처리 해 드리겠습니다.
+    </p>
+</div>
+{% endblock %}
+

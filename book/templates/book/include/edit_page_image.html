@@ -1,0 +1,9 @@
+<ul>
+    {% for pageImage in page.pageimage_set.all %}
+        <li>
+            <a id="pageimage_{{ pageImage.id }}" href="{{ MEDIA_URL }}{{ pageImage.image }}" target="_new">{{ pageImage.image }}</a>
+            <a class="markdown_tooltip" href="javascript:remove_image('{{ pageImage.id }}')" title="현재 이미지를 삭제합니다."><i style="margin-top:4px" class="glyphicon glyphicon-remove"></i></a>
+            <a class="markdown_tooltip" href="javascript:apply_image('{{ pageImage.id }}')" title="현재 이미지를 마크다운 에디터에 적용합니다."><i style="margin-top:4px" class="glyphicon glyphicon-ok"></i></a>
+        </li>
+    {% endfor %}
+</ul>

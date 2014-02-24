@@ -1,0 +1,7 @@
+{% if users %}
+<ul class="edit-book-user">
+    {% for su in users %}
+        <li>{{ su.first_name }} (<a href="javascript:user_add('{{ su.id }}')" style="font-size:12px;">추가</a>)</li>
+    {% endfor %}
+</ul>
+{% endif %}

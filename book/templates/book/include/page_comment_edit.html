@@ -1,0 +1,31 @@
+{% extends "book/base.html" %}
+
+{% load staticfiles %}
+
+{% block css %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="lead">
+                <strong>댓글 수정</strong>
+            </div>
+            <form role="form" method="post" action="/page/comment/edit/{{ comment.id }}">{% csrf_token %}
+
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" id="id_content"
+                              name="content">{{ comment.content }}</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-default" id="submitBtn">수정하기</button>
+                <a href="/{{ comment.page.id }}#comment_{{ comment.id }}" class="btn btn-default">취소하기</a>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+

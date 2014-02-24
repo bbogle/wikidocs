@@ -1,0 +1,65 @@
+{% extends "book/index.html" %}
+
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "auth/css/login.css" %}" />
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static "auth/js/join.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div style="margin:50px 0 80px 0;">
+<form class="form-signin" id="joinForm" name="joinForm" method='POST' autocomplete="off">{% csrf_token %}
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row" style="margin-bottom:10px;">
+        <h3 class="col-md-6" style="margin:0;">계정 만들기</h3>
+        <div class="col-md-6">
+            <span class="pull-right" style="margin-top:15px;">
+              또는
+              <a href="/loginForm">로그인하세요.</a>
+            </span>
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+          <strong>이메일은 반드시 정확히 입력 해 주세요.</strong>
+          비밀번호 분실 시 신규 비밀번호가 이메일로 발송됩니다.
+      </div>
+
+      {% if error and not errorMsg %}
+        <div class="alert alert-danger">
+        {% for field in error %}
+            {% if field.errors %}
+            <strong>{{ field.label }}</strong>
+            {{ field.errors }}
+            {% endif %}
+        {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if errorMsg %}
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>계정생성 에러!</h4>
+        {{errorMsg}}
+      </div>
+      {% endif %}
+
+      <input type="text" id="email" name="email" class="form-control input-block-level" value="{{ error.email.value }}" placeholder="이메일">
+      <input type="text" id="username" name="username" class="form-control input-block-level" value="{{ error.username.value }}" placeholder="이름">
+      <input type="password" id="passwd" name="passwd" class="form-control input-block-level" placeholder="비밀번호">
+
+      <button id="joinBtn" class="btn btn-primary pull-right" type="submit">계정만들기</button>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</form>
+</div>
+
+
+{% endblock %}

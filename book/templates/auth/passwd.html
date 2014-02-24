@@ -1,0 +1,75 @@
+{% extends "book/index.html" %}
+
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "auth/css/login.css" %}"/>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static "auth/js/passwd.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div style="margin:50px 0 80px 0;">
+        <form class="" id="passwdForm" name="passwdForm" method='POST'>{% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div class="row" style="margin-bottom:10px;">
+                        <h3 class="col-md-12" style="margin:0;">비밀번호를 잊으셨나요?</h3>
+                    </div>
+
+                    <div style="margin:10px 0 10px 0;">
+                        비밀번호 재설정을 위해 이메일 주소를 입력하세요.
+                    </div>
+
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {% for field in error %}
+                                {% if field.errors %}
+                                    <strong>{{ field.label }}</strong>
+                                    {{ field.errors }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <input type="text" id="email" name="email" class="form-control" placeholder="이메일" autocomplete="off"
+                           value="{{ error.email.value }}">
+
+                    {% if errorMsg %}
+                        <div class="alert alert-danger" style="margin-top:10px;">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h4>이메일 송신 에러!</h4>
+                            {{ errorMsg }}
+                        </div>
+                    {% endif %}
+
+                    {% if successMsg %}
+                        <div class="alert alert-info" style="margin-top:10px;">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ successMsg }}
+                        </div>
+                    {% endif %}
+
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-md-6">
+                            <button id="sendBtn" class="btn btn-primary" type="submit">보내기</button>
+                        </div>
+
+                        <div class="col-md-6 clearfix">
+                            <div class="pull-right" style="margin-top:5px;font-size:12px;">
+                                <a href="/loginForm">로그인으로 이동</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+{% endblock %}

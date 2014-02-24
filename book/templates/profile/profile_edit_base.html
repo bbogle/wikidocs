@@ -1,0 +1,37 @@
+{% extends "profile/profile_layout.html" %}
+
+{% block profile_edit_content %}
+
+    {% include "book/include/message.html" %}
+
+    <div class="row">
+        <div class="col-md-5">
+
+            <form role="form" method="post" action="/profile/edit/base">{% csrf_token %}
+                <div class="form-group">
+                    <label for="profile_name">이 름</label>
+                    <input type="text" class="form-control" id="id_name" name="name"
+                           value="{{ request.user.first_name }}">
+                </div>
+                {#        <div class="form-group">#}
+                {#            <label for="profile_summary">한줄 소개</label>#}
+                {#            <input type="text" class="form-control" id="id_summary" name="summary" value="{{ profile.summary|default:"" }}">#}
+                {#        </div>#}
+                {#        <div class="form-group">#}
+                {#            <label for="profile_computer">나의 첫번째 컴퓨터</label>#}
+                {#            <input type="text" class="form-control" id="id_computer" name="computer" value="{{ profile.computer|default:"" }}">#}
+                {##}
+                {#            <p class="help-block">가장 처음 사용했던 컴퓨터명을 입력하세요. (예: 삼보 TG-286)</p>#}
+                {#        </div>#}
+                {#        <div class="form-group">#}
+                {#            <label for="profile_editor">좋아하는 에디터</label>#}
+                {#            <input type="text" class="form-control" id="id_editor" name="editor" value="{{ profile.editor|default:"" }}">#}
+                {##}
+                {#            <p class="help-block">프로그래밍 시 즐겨 사용하는 에디터 (예:vi, eclipse, visual studio)</p>#}
+                {#        </div>#}
+
+                <button type="submit" class="btn btn-default" id="submitBtn">저장하기</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

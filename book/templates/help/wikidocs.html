@@ -1,0 +1,98 @@
+{% extends "book/base.html" %}
+
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "book/css/help.css" %}" />
+{% endblock %}
+
+{% block content %}
+
+<div class="help">
+    <div class="help-item">
+        <div class="help-question">
+            위키독스는 어떤 서비스인가요?
+        </div>
+        <div class="help-answer alert alert-info">
+            위키독스는 전자문서를 제작 배포하는 플랫폼 서비스입니다. <br />
+            누구나 위키독스에서 책을 작성한 후 공유 또는 판매할 수 있습니다.
+        </div>
+    </div>
+
+    <div class="help-item">
+        <div class="help-question">
+            책(e-book)을 어떻게 만들 수 있나요?
+        </div>
+        <div class="help-answer alert alert-info">
+            <p>
+                위키독스에 로그인 후 마크다운(Markdown) 편집기를 이용하여 저자가 직접 작성합니다. <br />
+                ※ <a href="http://en.wikipedia.org/wiki/Markdown" target="_new"><strong>마크다운</strong></a> 문법은 따로 익히셔야 합니다.
+            </p>
+        </div>
+    </div>
+
+    <div class="help-item">
+        <div class="help-question">
+            책 판매는 어떤식으로 진행되나요?
+        </div>
+        <div class="help-answer alert alert-info">
+            <p>다음의 순서로 책 판매가 진행됩니다.</p>
+            <p>
+                <strong>책 작성(저자)  &raquo; 판매요청(저자) &raquo; 심사 &raquo; 이북제작 &raquo; 판매개시</strong>
+            </p>
+            <p>판매요청은 아래 이메일로 해 주세요. 자세히 안내 해 드리겠습니다.</p>
+            <p>pahkey@gmail.com</p>
+        </div>
+    </div>
+
+    <div class="help-item">
+        <div class="help-question">
+            제작되는 전자책(e-book)의 종류에 대해서 알려주세요.
+        </div>
+        <div class="help-answer alert alert-info">
+            <ul>
+                <li>PDF</li>
+                <li>EPUB (일반 전자문서 파일)</li>
+                <li>MOBI (킨들용 전자문서 파일)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="help-item">
+        <div class="help-question">
+            판매되는 전자책(e-book)은 DRM이 적용되나요?
+        </div>
+        <div class="help-answer alert alert-info">
+            <p>
+                위키독스는 DRM을 적용하지 않습니다. <br />
+                단, 판매되는 전자문서 본문에 구매자 이름과 이메일을 포함합니다.
+            </p>
+        </div>
+    </div>
+
+    <div class="help-item">
+        <div class="help-question">
+            판매금액과 수익배분에 대해서 알려주세요.
+        </div>
+        <div class="help-answer alert alert-info">
+            <p>판매금액은 저자가 설정합니다.</p>
+            <p>
+                일반적으로 <strong>판매금액의 80%는 저자, 20%는 위키독스</strong>에게 배분됩니다. </br>
+                (비율은 저자와 위키독스간 조정이 가능합니다.)
+            </p>
+        </div>
+    </div>
+
+    <div class="help-item">
+        <div class="help-question">
+            책(e-book) 판매를 목적으로 작성한 책을 위키독스(http://wikidocs.net)에 공개해야 하나요?
+        </div>
+        <div class="help-answer alert alert-info">
+            <p>
+                위키독스는 오픈문서 정책을 따릅니다. <br />
+                e-book을 판매하더라도 온라인에 작성한 <strong>책의 내용 전체를 공개 하는것을 원칙</strong>으로 하고 있습니다.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

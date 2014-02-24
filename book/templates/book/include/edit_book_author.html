@@ -1,0 +1,6 @@
+<span class="label label-danger">{{ book.creator.first_name }}</span>
+{% for author in book.user.all %}
+    {% if author != book.creator %}
+    <a class="label label-info" href="javascript:user_del('{{ author.id }}')" title="공동저자 취소">{{ author.first_name }} <i style="margin-top:3px;" class="glyphicon glyphicon-remove"></i></a>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,58 @@
+{% load humanize %}
+{% for book in books %}
+{% if forloop.first or forloop.counter0|divisibleby:"2" %}
+<div class="row book-item">
+{% endif %}
+
+    <div class="col-md-6 clearfix row" style="margin-bottom:20px;">
+
+        <div class="col-md-12">
+            <div class="book-image-box pull-left">
+                <img src="{{ MEDIA_URL }}/{{ book.safe_image }}" class="book-image" onclick="javascript:location.href='{{ book.get_absolute_url }}'" style="cursor:pointer" />
+            </div>
+            <div class="book-detail">
+                <a href="{{ book.get_absolute_url }}" class="book-subject">{{ book.subject }}</a>
+
+                <div>
+                    -
+                    {% for user in book.user.all %}
+                        <a href="/profile/{{ user.id }}">{{ user.first_name }}</a>{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div>
+                    - {{ book.last_modify_time|date:"Y년 m월 d일" }}
+                </div>
+
+                <div style="margin-top:0px;">
+                    - <a style="font-size:11px" href="javascript:recommend_book('{{ book.id }}')" class="btn btn-default btn-xs" title="추천"><i class="glyphicon glyphicon-thumbs-up"></i> <strong>{{ book.recommend.count|intcomma }}</strong> 명이 추천</a>
+                </div>
+
+                {% if book.price > 0 %}
+                <div style="margin-top:3px;">
+                    - <a href="/buy/{{ book.id }}" class="label label-default label-warning">e-book</a>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% if forloop.last or forloop.counter|divisibleby:"2" %}
+</div>
+{% endif %}
+{% empty %}
+{% if user.is_authenticated and tab_name == "mybook" %}
+<div class="">
+    <p>
+        작성중인 책이 없습니다. <br />
+        새로운 책을 만들어 보세요.
+    </p>
+</div>
+{% endif %}
+{% endfor %}
+
+{% if user.is_authenticated and tab_name == "mybook" %}
+<a href="/edit/book/new" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus"></i> 새 책 만들기</a>
+{% endif %}
+
+

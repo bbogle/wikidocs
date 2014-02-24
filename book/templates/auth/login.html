@@ -1,0 +1,70 @@
+{% extends "book/index.html" %}
+
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "auth/css/login.css" %}"/>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static "auth/js/login.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+
+
+    <div style="margin:50px 0 80px 0;">
+        <form class="form-signin" id="loginForm" name="loginForm" action="/login" method='POST'
+              autocomplete="off">{% csrf_token %}
+            <input type="hidden" name="next" id="next" value="{{ next }}"/>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row" style="margin-bottom:10px;">
+                        <h3 class="col-md-4" style="margin:0;">로그인</h3>
+
+                        <div class="col-md-8">
+                            <span class="pull-right" style="margin-top:15px;">
+                              또는
+                              <a href="/joinForm">계정을 만드세요.</a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <input type="text" id="email" name="email" class="form-control input-block-level" placeholder="이메일"
+                           value="{{ email }}">
+                    <input type="password" id="passwd" name="passwd" class="form-control input-block-level"
+                           placeholder="비밀번호" autocomplete="off" value="{{ passwd }}">
+
+                    {% if errorMsg %}
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h4>로그인 에러!</h4>
+                            {{ errorMsg }}
+                        </div>
+                    {% endif %}
+
+                    <label class="checkbox pull-left" style="width:100px;font-size:12px;">
+                        <input type="checkbox" id="passwd_remember" name="passwd_remember"
+                               {% if passwd %}checked="checked"{% endif %}/> 비밀번호 저장
+                    </label>
+
+                    <button id="loginBtn" class="btn btn-primary pull-right" type="submit">로그인</button>
+                    <div class="clearfix"></div>
+
+                    <div style="font-size:12px;margin-top:10px;">
+                        <a href="/passwdForm">비밀번호를 잊으셨나요?</a>
+                    </div>
+
+                    <div style="margin-top:20px;border-top:solid 1px #ccc;">
+                        <div class="text-muted" style="font-size:12px;margin:10px 0;">구글 또는 페이스북 계정으로 로그인</div>
+                        <a rel="nofollow" href="{% url 'socialauth_begin' 'google-oauth2' %}"><img src="/static/img/google.png" title="구글 로그인"/></a>
+                        <a style="margin-left:5px" rel="nofollow" href="{% url 'socialauth_begin' 'facebook' %}"><img src="/static/img/facebook.png" title="페이스북 로그인"/></a>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

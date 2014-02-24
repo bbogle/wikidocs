@@ -1,0 +1,25 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">WikiDocs 관리</h1>
+{% endblock %}
+
+{% block nav-global %}
+    <style type="text/css">
+        .ml {margin:0 10px 10px;display:block;float:left}
+    </style>
+
+    <a href="/admin/" class="ml">관리홈</a>
+    <a href="/admin/book/book/" class="ml">문서</a>
+    <a href="/admin/book/page/" class="ml">페이지</a>
+    <a href="/admin/book/buy/" class="ml">구매</a>
+    <a href="/" class="ml">위키독스</a>
+
+{#    <a href="/admin/members/invoice/" class="ml">Invoices</a>#}
+{#    <a href="/admin/auth/user/?is_active__exact=0" class="ml">New Users</a>#}
+{#    <a href="/admin/auth/user/" class="ml">All Users</a>#}
+
+{% endblock %}

@@ -1,0 +1,20 @@
+<div>
+    <a href="/profile/{{ request.user.id }}" class="label label-primary">
+        <i class="glyphicon glyphicon-user"></i> {{ request.user.first_name }}
+    </a>
+    <a href="/logout" class="label label-danger" style="margin-left:10px;">
+        <i class="glyphicon glyphicon-log-out"></i> 로그아웃
+    </a>
+</div>
+
+<div class="bs-sidebar hidden-print" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li{% if request.path == '/profile/edit/base' %} class="active"{% endif %}>
+            <a href="/profile/edit/base">기본정보</a>
+        </li>
+        <li{% if request.path == '/profile/edit/password' %} class="active"{% endif %}>
+            <a href="/profile/edit/password">비밀번호 변경</a>
+        </li>
+    </ul>
+</div>
+

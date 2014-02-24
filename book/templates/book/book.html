@@ -1,0 +1,140 @@
+{% extends "book/base.html" %}
+
+{% load humanize %}
+{% load staticfiles %}
+{% load markup %}
+{% load page_nav_tags %}
+{% load summary %}
+
+{% block title %}{{ book.subject }} - WikiDocs{% endblock %}
+
+{% block css %}
+    <link type="text/css" href="{% static  "google-code-prettify/prettify.css" %}" rel="stylesheet"  />
+    <link type="text/css" href="{% static  "apprise/apprise.min.css" %}" rel="stylesheet"  />
+    <link type="text/css" href="{% static "book/css/markdown.css" %}" rel="stylesheet"  media="screen" />
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static "google-code-prettify/prettify.js" %}"></script>
+    <script type="text/javascript" src="{% static "apprise/apprise-1.5.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "scroll/jquery.nicescroll.js" %}"></script>
+    <script type="text/javascript" src="{% static "book/js/book.js" %}"></script>
+{% endblock %}
+
+{% block menu_title %}
+<div class="page-book-subject pull-right">{{ book.subject }}</div>
+{% endblock %}
+
+{% block content %}
+<div class="content row">
+    {# 목차#}
+    <div class="col-md-3">
+        {% include "book/include/toc.html" %}
+    </div>
+
+    {# 본문 #}
+    <div class="page col-md-9">
+        {% include "book/include/message.html" %}
+        <h1 class="page-subject">
+            {{ book.subject }}
+            {% if user in book.user.all %}
+            <a href="/edit/book/{{ book.id }}" class="btn btn-default btn-sm pull-right"><i class="glyphicon glyphicon-edit"></i> 책 수정</a>
+            {% endif %}
+        </h1>
+
+        <div class="book-info row clearfix">
+
+            <div class="book-image-box pull-left">
+                <img src="{{ MEDIA_URL }}/{{ book.safe_image }}" class="book-image" />
+            </div>
+
+            <div class="pull-left" style="margin:10px 0 0 15px;">
+                <div class="row">
+                    지은이 :
+                    {% for user in book.user.all %}
+                    <a href="/profile/{{ user.id }}">{{ user.first_name }}</a>{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    최종 편집일시 :
+                    {{ book.last_modify_time }}
+                </div>
+                <div class="row">
+                    저작권 :
+                    <img src="/static/img/{{book.ccl}}.png" style="cursor:pointer" onclick="location.href='http://creativecommons.org/licenses/{{ book.ccl }}/2.0/kr/'" title="저작권 보기" />
+                </div>
+                {% if book.price > 0 %}
+                <div class="row">
+                    <a href="/buy/{{ book.id }}" class="label label-warning">e-book</a>
+                    판매가 : <strong>{{ book.price|intcomma }}</strong>원
+                    (<a href="/buy/{{ book.id }}"><strong>구매하기</strong></a>)
+                </div>
+                {% endif %}
+                <div class="row" style="margin-top:5px;">
+                    <a href="javascript:recommend_book('{{ book.id }}');" class="btn btn-default btn-xs" title="추천"><i class="glyphicon glyphicon-thumbs-up"></i> <strong>{{ book.recommend.count|intcomma }}</strong> 명이 추천</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content">
+            {{ book.summary|markdown:"tables,footnotes,toc" }}
+        </div>
+
+        {% if book.recent_page_comments %}
+            <a href="javascript:show_comments()" class="label label-info">최근 댓글 ({{ book.recent_page_comments|length }})</a>
+        {% endif %}
+
+        {% if book.recent_pages %}
+            <a href="javascript:show_pages()" class="label label-info">최근 수정글 ({{ book.recent_pages|length }})</a>
+        {% endif %}
+
+        {% if book.recent_page_comments %}
+        <div class="recent_page_comments">
+            <div class="comments">
+            {% for comment in book.recent_page_comments %}
+                <div class="comment comment_border_top">
+                    <div style="margin-bottom:5px;">
+                        <a href="{{ comment.page.get_absolute_url }}#comment_{{ comment.id }}">{{ comment.page }}</a>
+                        <span style="font-size:11px;color:#888;">
+                            -
+                            {% if comment.user %}
+                            <a href="/profile/{{ comment.user.id }}">{{ comment.user.first_name }}</a>,
+                            {% else %}
+                            {{ comment.name }},
+                            {% endif %}
+                            {{ comment.create_time }}
+                        </span>
+                    </div>
+                    <span style="white-space:pre-wrap;">{{ comment.content|escape|urlize|truncatewords:"40" }}</span>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if book.recent_pages %}
+        <div class="recent_pages">
+            <div class="pages" style="display:none">
+            {% for page in book.recent_pages %}
+                <div class="comment comment_border_top">
+                    <div style="margin-bottom:5px;">
+                        <a href="{{ page.get_absolute_url }}">{{ page }}</a>
+                        <span style="font-size:11px;color:#888;">
+                            -
+                            {{ page.modify_time }}
+                        </span>
+                    </div>
+                    <span>{{ page.content|summary|truncatechars:"80" }}</span>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="page-prev-next">
+            {% book_next request book %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

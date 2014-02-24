@@ -1,0 +1,147 @@
+{% extends "book/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}페이지수정 - WikiDocs{% endblock %}
+
+{% block css %}
+    <link type="text/css" href="{% static  "apprise/apprise.min.css" %}" rel="stylesheet"  />
+    <link type="text/css" href="{% static "fileuploader/fileuploader.css" %}" rel="stylesheet" />
+    <link type="text/css" href="{% static "slider/css/slider.css" %}" rel="stylesheet" />
+    <link type="text/css" href="{% static "book/css/markdown.css" %}" rel="stylesheet"  media="screen" />
+    <link type="text/css" href="{% static "book/css/edit_page.css" %}" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static "common/js/jquery.blockUI.js" %}"></script>
+    <script type="text/javascript" src="{% static "markdown/jquery.markdown-0.2.js" %}"></script>
+    <script type="text/javascript" src="{% static "markdown/textselector.js" %}"></script>
+    <script type="text/javascript" src="{% static "markdown/jquery.griffin.editor.js" %}"></script>
+    <script type="text/javascript" src="{% static "markdown/jquery.griffin.editor.markdown.js" %}"></script>
+    <script type="text/javascript" src="{% static "apprise/apprise-1.5.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "fileuploader/fileuploader.js" %}"></script>
+    <script type="text/javascript" src="{% static "fullscreen/jquery.fullscreen.js" %}"></script>
+    <script type="text/javascript" src="{% static "scroll/jquery.nicescroll.js" %}"></script>
+    <script type="text/javascript" src="{% static "book/js/edit_page.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="content row">
+    {# 목차#}
+    <div class="col-md-3">
+        {% include "book/include/edit_toc.html" %}
+    </div>
+
+    {# 본문 #}
+    <div class="page col-md-9">
+        <h1 class="page-subject">
+            페이지 수정
+            <a href="/{{ page.id }}" class="btn btn-default btn-sm pull-right" style="margin-left:10px;"><i class="glyphicon glyphicon-repeat"></i> 페이지로 돌아가기</a>
+        </h1>
+
+        {% if message %}
+        <div class="alert alert-info alert-message">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            {{ message }}
+        </div>
+        {%  endif %}
+
+        {% if error %}
+            <div class="alert alert-danger">
+            {% for field in error %}
+                {% if field.errors %}
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+
+        <form id="page_form" name="page_form" method="post" action="/edit/page/save" class="form-horizontal">
+            <input type="hidden" name="page_id" id="page_id" value="{{ page.id }}" />
+            <input type="hidden" name="action" id="action" />
+            <div class="form-group">
+                <label class="col-lg-2" for="subject"><strong>페이지 제목</strong></label>
+                <div class="col-lg-10">
+                    <input class="form-control" type="text" id="subject" name="subject" value="{% if error.subject.value  %}{{ error.subject.value }}{% else %}{{ page.subject }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2" for="parent"><strong>부모 페이지</strong></label>
+                <div class="col-lg-10">
+                    <select id="parent" name="parent" class="form-control">
+                        <option value="">없음</option>
+                        {% for toc_page in toc %}
+                            <option {% if toc_page == page.parent %}selected="selected"{% endif %} value="{{ toc_page.id }}">{{ toc_page.subject }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group form-inline">
+                <label class="col-lg-2" for="open_yn"><strong>공개/비공개</strong></label>
+                <div class="col-lg-10">
+                    <input type="radio" name="open_yn" id="open_yn_y" value="Y" {% if page.open_yn == 'Y' %}checked="checked"{% endif %}/>
+                    <label for="open_yn_y">공개</label>
+
+                    <input type="radio" name="open_yn" id="open_yn_n" value="N" {% if page.open_yn == 'N' %}checked="checked"{% endif %}/>
+                    <label for="open_yn_n">비공개</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2" for="image_size">
+                    <strong>이미지</strong>
+                </label>
+                <div class="col-lg-10">
+                    <div class="clearfix">
+                        <select id="image_size" name="image_size" class="form-control pull-left" style="width:100px;margin-right:20px;">
+                            {% for val in range50 %}
+                                <option value="{{ val }}">{{ val }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="help-inline" style="font-size: 12px;margin-top:10px;">※ 이미지 사이즈 조절 후 업로드하세요. (0: 원본크기)</div>
+
+                    </div>
+
+                    <div id="file-uploader" style="margin-top:10px;"></div>
+                    <div id="page-images">
+                        {% include "book/include/edit_page_image.html" %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2" for="content"><strong>페이지 내용</strong></label>
+                <div class="markdown_editor col-lg-10">
+                    {% include "book/include/markdown_toolbar.html" %}
+                    <textarea name="content" id="content" class="form-control">{% if error.content.value  %}{{ error.content.value }}{% else %}{{ page.content }}{% endif %}</textarea>
+                </div>
+            </div>
+
+            <hr style="margin:20px 0 10px 0;"/>
+
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <button id="page_modify_btn" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-check"></i> 저 장</button>
+                    <button id="page_add_btn" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus"></i> 추 가</button>
+                    <button id="page_delete_btn" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i> 삭 제</button>
+                    <a href="/admin/book/page/{{ page.id }}/history/" class="label label-default pull-right"><i class="glyphicon glyphicon-time"></i> 변경이력</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script id="file-uploader-template" type="text/x-file-uploader">
+    <div class="qq-uploader">
+        <div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>
+        <div class="qq-upload-button btn btn-small" style="padding:2px;">이미지 업로드</div>
+        <ul style="display:none" class="qq-upload-list"></ul>
+    </div>
+
+</script>
+{% endblock %}
+

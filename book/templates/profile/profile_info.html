@@ -1,0 +1,174 @@
+{% extends "profile/profile_layout.html" %}
+{% load staticfiles %}
+{% load summary %}
+
+{% block css %}
+    <link type="text/css" href="{% static "profile/css/info.css" %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block profile_menu %}
+    <div class="user" style="margin-bottom:20px;">
+        <a href="/profile/{{ who.id }}" class="btn btn-default btn-block">
+            <i class="glyphicon glyphicon-user"></i> {{ who.first_name }}
+        </a>
+    </div>
+    {% if not request.mobile %}
+        <div class="well" style="background: #fff;">
+            <div style="font-size:16px;margin-bottom:10px;"><strong>CleanCode</strong></div>
+            <p>
+                CleanCode는 한국의 스택오버플로우를 꿈꾸는 개발자 커뮤니티입니다.
+            </p>
+
+            <p>
+                <a href="http://cleancode.kr">cleancode.kr</a>
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block profile_edit_content %}
+    {% include "message.html" %}
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#recent_comments" data-toggle="tab">최근 댓글</a></li>
+        <li><a href="#recent_pages" data-toggle="tab">최근 수정 페이지</a></li>
+        <li><a href="#recent_books" data-toggle="tab">작성중인 책</a></li>
+    </ul>
+
+
+
+    <div class="tab-content">
+        <div id="recent_comments" class="tab-pane active">
+            {% for comment in comments %}
+                <div class="question-line">
+
+                    <div class="row">
+                        {% if not request.mobile %}
+                            <div class="col-md-2">
+                                <div class="book-image-box">
+                                    <img src="{{ MEDIA_URL }}/{{ comment.page.book.safe_image }}" class="book-image"
+                                         onclick="javascript:location.href='{{ comment.page.get_absolute_url }}#comment_{{ comment.id }}'"
+                                         title="{{ comment.page.book.subject }}"
+                                         style="cursor:pointer"/>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="col-md-10">
+
+                            <div class="question-summary" style="margin-top:0;">
+                                {{ comment.content|striptags|escape|truncatechars:"160" }}
+                            </div>
+
+                            <div>
+                                <span class="comment-question-subject">
+                                    <a href="{{ comment.page.get_absolute_url }}#comment_{{ comment.id }}">{{ comment.page.subject }}</a>
+                                </span>
+                            </div>
+
+                            <div class="info-timesince">
+                                약 {{ comment.create_time|timesince }} 전
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            {% empty %}
+                <div class="well">
+                    아직 구경만 하고 있어요
+                </div>
+            {% endfor %}
+        </div>
+
+        <div id="recent_pages" class="tab-pane">
+            {% for page in pages %}
+                <div class="question-line">
+
+                    <div class="row">
+                        {% if not request.mobile %}
+                            <div class="col-md-2">
+                                <div class="book-image-box">
+                                    <img src="{{ MEDIA_URL }}/{{ page.book.safe_image }}" class="book-image"
+                                         onclick="javascript:location.href='{{ page.get_absolute_url }}'"
+                                         title="{{ page.book.subject }}"
+                                         style="cursor:pointer"/>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="col-md-10">
+
+                            <div>
+                                <a href="{{ page.get_absolute_url }}"
+                                   class="question-subject">{{ page.subject }}</a>
+                            </div>
+
+                            {% if request.mobile %}
+                                <div class="question-summary">
+                                    {{ page.content|summary|truncatechars:"80" }}
+                                </div>
+                            {% else %}
+                                <div class="question-summary">
+                                    {{ page.content|summary|truncatechars:"160" }}
+                                </div>
+                            {% endif %}
+
+                            <div class="info-timesince">
+                                약 {{ page.modify_time|timesince }} 전
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="well">
+                    책부터 만들구요
+                </div>
+            {% endfor %}
+        </div>
+
+        <div id="recent_books" class="tab-pane">
+            {% for book in books %}
+                <div class="question-line">
+                    <div class="row">
+                        {% if not request.mobile %}
+                            <div class="col-md-2">
+                                <div class="book-image-box">
+                                    <img src="{{ MEDIA_URL }}/{{ book.safe_image }}" class="book-image"
+                                         onclick="javascript:location.href='{{ book.get_absolute_url }}'"
+                                         style="cursor:pointer"/>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="col-md-10">
+                            <div>
+                                <a href="/book/{{ book.id }}" class="question-subject">{{ book.subject }}</a>
+                            </div>
+
+                            <div class="question-summary">
+                                저자: {{ book.get_plain_authors }}
+                            </div>
+
+                            {% if request.mobile %}
+                                <div class="question-summary">
+                                    {{ book.summary|summary|truncatechars:"80" }}
+                                </div>
+                            {% else %}
+                                <div class="question-summary">
+                                    {{ book.summary|summary|truncatechars:"160" }}
+                                </div>
+                            {% endif %}
+
+                            <div class="info-timesince">
+                                약 {{ book.modify_time|timesince }} 전
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            {% empty %}
+                <div class="well">
+                    아직 구상만 하고 있어요
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

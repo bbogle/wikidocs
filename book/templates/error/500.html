@@ -1,0 +1,26 @@
+{% extends "book/base.html" %}
+
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "book/css/help.css" %}"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="content alert alert-warning">
+        <p class="lead"><strong>Internal Server Error</strong></p>
+
+        <p style="margin:20px 0">
+            알 수 없는 오류가 발생했습니다. <br/>
+            오류의 내용이 관리자에게 이메일로 전달되었습니다.<br/>
+            오류를 조속히 해결하도록 하겠습니다.
+        </p>
+
+        <p>
+            <a href="/" class="btn btn-default">메인으로 이동하기</a>
+        </p>
+    </div>
+
+
+{% endblock %}

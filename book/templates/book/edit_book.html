@@ -1,0 +1,167 @@
+{% extends "book/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}책수정 - WikiDocs{% endblock %}
+
+{% block css %}
+    <link type="text/css" href="{% static  "apprise/apprise.min.css" %}" rel="stylesheet"  />
+    <link type="text/css" href="{% static "book/css/markdown.css" %}" rel="stylesheet"  media="screen" />
+    <link type="text/css" href="{% static "book/css/edit_book.css" %}" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static "markdown/jquery.markdown-0.2.js" %}"></script>
+    <script type="text/javascript" src="{% static "markdown/textselector.js" %}"></script>
+    <script type="text/javascript" src="{% static "markdown/jquery.griffin.editor.js" %}"></script>
+    <script type="text/javascript" src="{% static "markdown/jquery.griffin.editor.markdown.js" %}"></script>
+    <script type="text/javascript" src="{% static "apprise/apprise-1.5.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "fullscreen/jquery.fullscreen.js" %}"></script>
+    <script type="text/javascript" src="{% static "scroll/jquery.nicescroll.js" %}"></script>
+    <script type="text/javascript" src="{% static "book/js/edit_book.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="content row">
+    {# 목차#}
+    <div class="col-md-3">
+        {% include "book/include/edit_toc.html" %}
+    </div>
+
+    {# 본문 #}
+    <div class="page col-md-9">
+
+        <h1 class="page-subject">
+            책 수정
+            <a href="/book/{{ book.id }}" class="btn btn-default btn-sm pull-right" style="margin-left:10px;"><i class="glyphicon glyphicon-repeat"></i> 책으로 돌아가기</a>
+        </h1>
+
+        {% if message %}
+        <div class="alert alert-info">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            {{ message }}
+        </div>
+        {%  endif %}
+
+        {% if error %}
+            <div class="alert alert-danger">
+            {% for field in error %}
+                {% if field.errors %}
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+
+        <form id="book_form" name="book_form" method="post" action="/edit/book/save" class="form-horizontal" enctype="multipart/form-data">
+            <input type="hidden" name="book_id" id="book_id" value="{{ book.id }}" />
+            <input type="hidden" name="action" id="action" />
+            <div class="form-group">
+                <label class="col-lg-2" for="subject">
+                    <strong>책 제목</strong>
+                </label>
+                <div class="col-lg-10">
+                    <input class="form-control" type="text" id="subject" name="subject" value="{{ book.subject }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2"><strong>책 이미지</strong></label>
+                <div class="col-lg-10">
+                    <div class="book-image-box">
+                        <img src="{{ MEDIA_URL }}/{{ book.safe_image }}" class="book-image" />
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <input type="file" name="image" id="image" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2" for="search_user"><strong>공동저자</strong></label>
+                <div class="col-lg-10">
+                    <div id="book_authors">
+                        {% include "book/include/edit_book_author.html" %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-lg-offset-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="search_user" name="search_user" placeholder="이름 또는 이메일로 검색하세요." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" id="search_user_btn">검 색</button>
+                        </span>
+                    </div><!-- /input-group -->
+                    <div id="search_result"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2"><strong>공개/비공개</strong></label>
+                <div class="col-lg-10">
+                    <input type="radio" name="open_yn" id="open_yn_y" value="Y" {% if book.open_yn == 'Y' %}checked="checked"{% endif %}/>
+                    <label for="open_yn_y">공개</label>
+
+                    <input type="radio" name="open_yn" id="open_yn_n" value="N" {% if book.open_yn == 'N' %}checked="checked"{% endif %}/>
+                    <label for="open_yn_n">비공개</label>
+                </div>
+            </div>
+
+            <div class="form-group form-inline">
+                <label class="col-lg-2" for="ccl_left"><strong>저작물의 영리목적 이용을 허락합니까?</strong></label>
+                <div class="col-lg-10">
+                    <input type="radio" name="ccl_left" id="ccl_left_by" value="by" {% if book.ccl_left == 'by' %}checked="checked"{% endif %}/>
+                    <label style="display:inline" for="ccl_left_by">예</label>
+
+                    <br />
+
+                    <input type="radio" name="ccl_left" id="ccl_left_by_nc" value="by-nc" {% if book.ccl_left == 'by-nc' %}checked="checked"{% endif %}/>
+                    <label style="display:inline" for="ccl_left_by_nc">아니오</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2" for="ccl_right"><strong>저작물의 변경을 허락합니까?</strong></label>
+                <div class="col-lg-10">
+                    <input type="radio" name="ccl_right" id="ccl_right_" value="-" {% if book.ccl_right == '-' %}checked="checked"{% endif %}/>
+                    <label style="display:inline" for="ccl_right_">예</label>
+
+                    <br />
+
+                    <input type="radio" name="ccl_right" id="ccl_right_sa" value="-sa" {% if book.ccl_right == '-sa' %}checked="checked"{% endif %}/>
+                    <label style="display:inline" for="ccl_right_sa">동일한 이용허락조건을 적용하는 경우에만</label>
+
+                    <br />
+
+                    <input type="radio" name="ccl_right" id="ccl_right_nd" value="-nd" {% if book.ccl_right == '-nd' %}checked="checked"{% endif %}/>
+                    <label style="display:inline" for="ccl_right_nd">아니오</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2" for="content"><strong>책 요약</strong></label>
+                <div class="markdown_editor col-lg-10">
+                    {% include "book/include/markdown_toolbar.html" %}
+                    <textarea name="content" id="content" class="form-control">{{ book.summary }}</textarea>
+                </div>
+            </div>
+
+            <hr style="margin:20px 0 10px 0;"/>
+
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <button id="book_modify_btn" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-check"></i> 책 저장</button>
+                    <button id="book_delete_btn" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i> 책 삭제</button>
+
+                    <a href="/admin/book/book/{{ book.id }}/history/" class="label label-default pull-right"><i class="glyphicon glyphicon-time"></i> 변경이력</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

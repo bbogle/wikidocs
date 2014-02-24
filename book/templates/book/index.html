@@ -1,0 +1,48 @@
+{% extends "book/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}WikiDocs{% endblock %}
+
+{% block css %}
+<link type="text/css" href="{% static  "apprise/apprise.min.css" %}" rel="stylesheet"  />
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static "apprise/apprise-1.5.min.js" %}"></script>
+<script type="text/javascript" src="{% static "book/js/index.js" %}"></script>
+{% endblock %}
+
+{%  block content %}
+
+{% include "book/include/message.html" %}
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>WikiDocs</h1>
+        <p style="margin-top:10px">
+            위키독스는 온라인 책을 제작 공유하는 플랫폼 서비스입니다.
+        </p>
+        <p><a href="/help/wikidocs" class="btn btn-primary btn-lg">자세히 알아보기 &raquo;</a></p>
+    </div>
+</div>
+
+<div class="index">
+    <input type="hidden" name="tab_name" id="tab_name" value="{{ tab_name }}" />
+
+    <ul class="nav nav-tabs" id="book-tab">
+        <li book="sell"><a href="#_">추천책</a></li>
+        <li book="share"><a href="#_">공유책</a></li>
+        {% if user.is_authenticated %}
+        <li book="mybook"><a href="#_">나의책</a></li>
+        {% endif %}
+    </ul>
+
+    <div class="tab-content">
+        <div id="books" style="margin-top:20px;">
+            {{ tab|safe }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

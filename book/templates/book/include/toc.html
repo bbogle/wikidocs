@@ -1,0 +1,61 @@
+{# 목차#}
+<div class="toc{% if request.mobile %} hide{% endif %}">
+    <div class="toc-subject clearfix">
+        {% if not page %}
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        {% endif %}
+        <a class="selected_toc" href="{{ book.get_absolute_url }}">{{ book.subject }}</a>
+        {% if book.open_yn == "N" %}
+            <span class="glyphicon glyphicon-lock"></span>
+        {% endif %}
+        {% if book.price > 0 %}
+            {#        <a href="/buy/{{ book.id }}" class="label label-warning pull-right" title="e-book 구매하기"><i class="icon-shopping-cart icon-white"></i> e-book</a>#}
+        {% endif %}
+    </div>
+    <ul class="toc-area">
+        {% for toc_page in toc %}
+            <li class="{% if toc_page == page %}selected_toc_li{% endif %}">
+                <a href="{{ toc_page.get_absolute_url }}" class="{% if toc_page == page %}selected_toc{% endif %}">
+                <span style="width:220px;white-space:nowrap;overflow:hidden;display:block;"
+                      title="{{ toc_page.subject }}">
+                    <span style="padding-left:{{ toc_page.subject_margin }}px">
+                    {% if toc_page.open_yn == "N" %}
+                        <i class="glyphicon glyphicon-lock"></i>
+                    {% endif %}
+                        {% if toc_page == page %}
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        {% endif %}
+                        {{ toc_page.subject }}
+                    </span>
+                </span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div style="display:none;" class="text-center toc-open">
+        <a href="javascript:open_toc();">
+            <i class="glyphicon glyphicon-chevron-down"></i> 전체 목차보기
+        </a>
+    </div>
+</div>
+
+{% if request.mobile %}
+    <button class="btn btn-default btn-sm" id="show_toc_btn" style="margin-bottom:10px;">
+        <i class="glyphicon glyphicon-folder-open"></i> 목차 펼치기
+    </button>
+{% endif %}
+
+{% if not request.mobile %}
+    <div class="well toc-ads" style="background: #fff;display:none;">
+        <div style="font-size:16px;margin-bottom:10px;"><strong>CleanCode</strong></div>
+        <p>
+            CleanCode는 한국의 스택오버플로우를 꿈꾸는 개발자 커뮤니티입니다.
+        </p>
+
+        <p>
+            <a href="http://cleancode.kr">cleancode.kr</a>
+        </p>
+    </div>
+{% endif %}
+
+<input type="hidden" name="request_mobile" id="request_mobile" value="{% if request.mobile %}1{% else %}0{% endif %}" />

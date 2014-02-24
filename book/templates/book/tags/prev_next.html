@@ -1,0 +1,12 @@
+ <ul>
+    {% if prev %}
+        <li><strong>이전글</strong> : <a href="{{ prev.get_absolute_url }}">{{ prev.subject }}</a></li>
+    {%  else %}
+        <li><strong>이전글</strong> : <a href="{{ page.book.get_absolute_url }}">{{ page.book.subject }}</a></li>
+    {% endif %}
+    {% if next %}
+        <li><strong>다음글</strong> : <a href="{{ next.get_absolute_url }}">{{ next.subject }}</a></li>
+    {%  else %}
+        <li><strong>다음글</strong> : 마지막 페이지입니다.</li>
+    {% endif %}
+</ul>

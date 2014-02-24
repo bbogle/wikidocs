@@ -1,0 +1,37 @@
+<div class="toolbar clearfix">
+    <span class="button-h1" accesskey="1" title="Heading 1"><img src="/static/markdown/images/h1.png" /></span>
+    <span class="button-h2" accesskey="2" title="Heading 2"><img src="/static/markdown/images/h2.png" /></span>
+    <span class="button-h3" accesskey="3" title="Heading 3"><img src="/static/markdown/images/h3.png" /></span>
+    <span class="button-bold" accesskey="b" title="Bold text"><img src="/static/markdown/images/bold.png" /></span>
+    <span class="button-italic" accesskey="i" title="Italic text"><img src="/static/markdown/images/italic.png" /></span>
+    <span class="divider">&nbsp;</span>
+    <span class="button-bullets" accesskey="l" title="Bullet List"><img src="/static/markdown/images/bullets.png" /></span>
+    <span class="button-numbers" accesskey="n" title="Ordered list"><img src="/static/markdown/images/numbers.png" /></span>
+    <span class="divider">&nbsp;</span>
+    <span class="button-sourcecode" accesskey="k" title="Source code"><img src="/static/markdown/images/source_code.png" /></span>
+    <span class="button-quote" accesskey="q" title="Quotation"><img src="/static/markdown/images/document_quote.png" /></span>
+    <span class="divider">&nbsp;</span>
+    <span class="button-link" accesskey="l" title="Insert link"><img src="/static/markdown/images/link.png" /></span>
+    <span class="button-image" accesskey="p" title="Insert picture/image"><img src="/static/markdown/images/picture.png" /></span>
+    <a href="http://en.wikipedia.org/wiki/Markdown" target="_new" class="label label-default pull-right" style="margin-top:5px;margin-left:5px;">마크다운이란?</a>
+    <a href="javascript:preview();" class="label label-default pull-right" style="margin-top:5px;margin-left:5px;">미리보기</a>
+    <a href="javascript:fullscreen();" class="label label-default pull-right" style="margin-top:5px;margin-left:5px;">전체화면 편집</a>
+{#    <a href="#" class="markdown_tooltip label pull-right" style="margin-top:5px;" rel="tooltip" data-toggle="tooltip"#}
+{#       title="이미지 업로드는 링크만 가능합니다. 다른 곳(예:드롭박스)에 이미지를 먼저 업로드 하신 후에 좌측의 이미지 버튼을 이용하여 이미지를 삽입 해 주시기 바랍니다.">이미지업로드</a>#}
+</div>
+
+
+<div class="modal" id="markdownPreview" tabindex="-1" role="dialog" aria-labelledby="markdownPreviewLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close closePreview" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">미리보기</h4>
+        </div>
+        <div class="modal-body" id="markdown_preview_content"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default closePreview" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

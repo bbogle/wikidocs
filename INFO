@@ -1,0 +1,33 @@
+## database create
+1. postgresql database install
+2. create wikidocs user
+3. create wikidocs databse with wikidocs user
+
+## south usage
+** init **
+1. python manage.py schemamigration book --init
+2. python manage.py syncdb
+3. python manage.py migrate book
+4. python manage.py migrate reversion
+
+** normal **
+1. python manage.py schemamigration book --auto
+2. python manage.py migrate book
+
+## south convert
+1. python manage.py convert_to_south book
+
+## celery
+$ supervisord
+$ supervisorctl tail celeryd
+$ supervisorctl restart celeryd
+
+## uwsgi
+$ touch reload
+# or
+$ sudo service uwsgi restart
+
+## pip install
+$ wikidocs
+$ . activate
+$ pip install blah~~
