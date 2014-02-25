@@ -30,6 +30,7 @@
     {# 본문 #}
     <div class="page col-md-9">
         {% include "book/include/message.html" %}
+
 {#        <div class="row" style="margin:0;padding:0;">#}
             <h1 class="page-subject">
                 {{ page.subject }}
@@ -39,20 +40,21 @@
             </h1>
 {#        </div>#}
 
+        {% if page.book.adv_yn == 'Y' %}
+        <div class="well" style="margin:20px 0;">
+            <div class="row">
+                <div class="col-xs-10">{{ page.book.adv_content|safe }}</div>
+                <div class="col-xs-2"><span class="label label-primary pull-right">광고</span></div>
+            </div>
+        </div>
+        {% endif %}
+
         <div class="page-content">
             {{ page.content|markdown:"tables,footnotes,toc,fenced_code" }}
         </div>
 
         <div class="muted text-right" style="font-size: 12px;margin:10px 0;">
             마지막 편집일시 : {{ page.modify_time }}
-        </div>
-
-        <div class="well" style="background: #fff;margin:20px auto;">
-            <div class="row">
-
-                <div class="col-xs-10"><a href="http://codingdojo.kr">코딩도장 (codingdojo.kr)</a> - 코딩도장은 프로그래밍 문제풀이를 통해서 코딩실력을 갈고 닦는 곳입니다.</div>
-                <div class="col-xs-2"><span class="label label-primary pull-right">광고</span></div>
-            </div>
         </div>
 
         <a href="javascript:show_comments();" class="label label-info">댓글 {{ page.pagecomment_set.all|length }}</a>

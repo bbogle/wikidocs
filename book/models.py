@@ -21,6 +21,10 @@ OPEN_YN_CHOICES = (
     ("Y", u"공개"),
     ("N", u"비공개"),
 )
+ADV_YN_CHOICES = (
+    ("Y", u"예"),
+    ("N", u"아니오"),
+)
 CCL_LEFT = (
     ("by", u"예"),
     ("by-nc", u"아니오"),
@@ -43,6 +47,8 @@ class Book(models.Model):
     summary = models.TextField(null=True, blank=True, verbose_name=u"책 설명")
     ccl_left = models.CharField(max_length=20, null=True, choices=CCL_LEFT, verbose_name=u"저작물의 영리목적 이용을 허락합니까?")
     ccl_right = models.CharField(max_length=20, null=True, choices=CCL_RIGHT, verbose_name=u"저작물의 변경을 허락합니까?")
+    adv_yn = models.CharField(max_length=1, default="N", choices=ADV_YN_CHOICES, verbose_name=u"광고를 표시합니까?")
+    adv_content = models.TextField(null=True, blank=True, verbose_name=u"광고 내용")
 
     def __unicode__(self):
         return self.subject

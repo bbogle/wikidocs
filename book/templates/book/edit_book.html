@@ -150,6 +150,24 @@
                 </div>
             </div>
 
+            <div class="form-group form-inline">
+                <label class="col-lg-2" for="ccl_left"><strong>광고를 표시합니까?</strong></label>
+                <div class="col-lg-10">
+                    <input type="radio" name="adv_yn" id="adv_yn_y" value="Y" {% if book.adv_yn == 'Y' %}checked="checked"{% endif %}/>
+                    <label style="display:inline" for="adv_yn_y">예</label>
+
+                    <input type="radio" name="adv_yn" id="adv_yn_n" value="N" {% if book.adv_yn == 'N' %}checked="checked"{% endif %}/>
+                    <label style="display:inline" for="adv_yn_n">아니오</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2" for="content"><strong>광고 내용</strong></label>
+                <div class="col-lg-10">
+                    <textarea name="adv_content" id="adv_content" class="form-control" rows="5">{{ book.adv_content|default:"" }}</textarea>
+                </div>
+            </div>
+
             <hr style="margin:20px 0 10px 0;"/>
 
             <div class="form-group">
