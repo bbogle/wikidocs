@@ -471,6 +471,8 @@ def edit_book_save(request):
     open_yn = request.POST.get("open_yn")
     ccl_left = request.POST.get("ccl_left")
     ccl_right = request.POST.get("ccl_right")
+    adv_yn = request.POST.get("adv_yn")
+    adv_content = request.POST.get("adv_content")
 
     book = Book.objects.get(id=book_id)
 
@@ -494,6 +496,8 @@ def edit_book_save(request):
             book.open_yn = open_yn
             book.ccl_left = ccl_left
             book.ccl_right = ccl_right
+            book.adv_yn = adv_yn
+            book.adv_content = adv_content
             book.modify_time = datetime.datetime.now()
 
             if 'image' in request.FILES:
