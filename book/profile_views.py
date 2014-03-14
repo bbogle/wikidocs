@@ -3,8 +3,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from book.models import Page, Book, PageComment
 from book.views import my_render, update_context
+
+PER_PAGE = 10
 
 
 @login_required
@@ -53,18 +56,33 @@ def edit_password(request):
 
 
 def info(request, u_id):
+
+
     _user = User.objects.get(id=u_id)
     books = Book.objects.filter(user=_user, open_yn="Y").order_by("-modify_time")
     pages = Page.objects.filter(book__user=_user, book__open_yn="Y", open_yn="Y")\
                 .order_by("-modify_time")[:10]
-    comments = PageComment.objects.filter(user=_user).order_by("-create_time")[:10]
+    comments = PageComment.objects.filter(user=_user).order_by("-create_time")
     recommend_count = Book.objects.filter(user=_user).values("recommend").count()
+
+    total_count = comments.count()
+    page = int(request.POST.get("page", "1"))
+    paginator = Paginator(comments, PER_PAGE)
+
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
 
     c = {"who":_user,
          "books":books,
          "pages":pages,
          "comments":comments,
          "recommend_count":recommend_count,
+         "per_page":PER_PAGE,
+         "total_count":total_count,
          }
     update_context(request, c)
     return my_render(request, 'profile/profile_info.html', c)

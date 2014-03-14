@@ -2,7 +2,13 @@
 {% load staticfiles %}
 {% load summary %}
 
+{% block js %}
+    <script type="text/javascript" src="{% static "pagination/jquery.pagination.js" %}"></script>
+    <script type="text/javascript" src="{% static "profile/js/info.js" %}"></script>
+{% endblock %}
+
 {% block css %}
+    <link type="text/css" href="{% static "pagination/pagination.css" %}" rel="stylesheet"/>
     <link type="text/css" href="{% static "profile/css/info.css" %}" rel="stylesheet"/>
 {% endblock %}
 
@@ -35,8 +41,6 @@
         <li><a href="#recent_books" data-toggle="tab">작성중인 책</a></li>
     </ul>
 
-
-
     <div class="tab-content">
         <div id="recent_comments" class="tab-pane active">
             {% for comment in comments %}
@@ -54,16 +58,11 @@
                             </div>
                         {% endif %}
                         <div class="col-md-10">
-
-                            <div class="question-summary" style="margin-top:0;">
-                                {{ comment.content|striptags|escape|truncatechars:"160" }}
-                            </div>
-
                             <div>
-                                <span class="comment-question-subject">
-                                    <a href="{{ comment.page.get_absolute_url }}#comment_{{ comment.id }}">{{ comment.page.subject }}</a>
-                                </span>
+                                <a class="question-subject" href="{{ comment.page.get_absolute_url }}#comment_{{ comment.id }}">{{ comment.page.subject }}</a>
                             </div>
+
+                            <div class="question-summary" style="white-space:pre-wrap;">{{ comment.content|escape|urlize }}</div>
 
                             <div class="info-timesince">
                                 약 {{ comment.create_time|timesince }} 전
@@ -72,11 +71,24 @@
                     </div>
 
                 </div>
+
             {% empty %}
                 <div class="well">
                     아직 구경만 하고 있어요
                 </div>
             {% endfor %}
+
+            {% if total_count > per_page %}
+            <div class="row page-area">
+                <form name="hiddenForm" id="hiddenForm" method="post" action="{{ request.path }}">
+                    <input type="hidden" name="total_count" id="total_count" value="{{ total_count }}" />
+                    <input type="hidden" name="current_page" id="current_page" value="{{ comments.number }}" />
+                    <input type="hidden" name="per_page" id="per_page" value="{{ per_page }}" />
+                    <input type="hidden" name="page" id="page" />
+                </form>
+                <div id="pagination" class="col-md-12" style="margin-top:-10px;"></div>
+            </div>
+            {% endif %}
         </div>
 
         <div id="recent_pages" class="tab-pane">
