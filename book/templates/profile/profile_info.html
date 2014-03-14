@@ -48,6 +48,7 @@
 
                     <div class="row">
                         {% if not request.mobile %}
+                            <!--
                             <div class="col-md-2">
                                 <div class="book-image-box">
                                     <img src="{{ MEDIA_URL }}/{{ comment.page.book.safe_image }}" class="book-image"
@@ -56,10 +57,13 @@
                                          style="cursor:pointer"/>
                                 </div>
                             </div>
+                            -->
                         {% endif %}
                         <div class="col-md-10">
                             <div>
                                 <a class="question-subject" href="{{ comment.page.get_absolute_url }}#comment_{{ comment.id }}">{{ comment.page.subject }}</a>
+                                <span class="text-muted" style="margin:0 5px;">:</span>
+                                <a href="{{ comment.page.book.get_absolute_url }}">{{ comment.page.book.subject }}</a>
                             </div>
 
                             <div class="question-summary" style="white-space:pre-wrap;">{{ comment.content|escape|urlize }}</div>
@@ -97,6 +101,7 @@
 
                     <div class="row">
                         {% if not request.mobile %}
+                            <!--
                             <div class="col-md-2">
                                 <div class="book-image-box">
                                     <img src="{{ MEDIA_URL }}/{{ page.book.safe_image }}" class="book-image"
@@ -105,12 +110,15 @@
                                          style="cursor:pointer"/>
                                 </div>
                             </div>
+                            -->
                         {% endif %}
                         <div class="col-md-10">
 
                             <div>
                                 <a href="{{ page.get_absolute_url }}"
                                    class="question-subject">{{ page.subject }}</a>
+                                <span class="text-muted" style="margin:0 5px;">:</span>
+                                <a href="{{ page.book.get_absolute_url }}">{{ page.book.subject }}</a>
                             </div>
 
                             {% if request.mobile %}
