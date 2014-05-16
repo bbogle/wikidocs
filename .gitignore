@@ -213,10 +213,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-<<<<<<< HEAD
 wikidocs/secret_key.py
-=======
->>>>>>> 7edd60a2c41f9a3cf366bef38e3245a445b5ed40
 .idea/
 book/migrations/
 cache/
@@ -225,3 +222,4 @@ logs/
 pandoc/gen/
 pandoc/md/
 reload
+book/static/admin/
