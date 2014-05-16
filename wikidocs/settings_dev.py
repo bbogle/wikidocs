@@ -12,3 +12,25 @@ CACHES = {
     }
 }
 CACHE_TIMEOUT = 300
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'django.contrib.markup',
+    'django.contrib.humanize',
+    'django.contrib.sitemaps',
+
+    'south',
+    'reversion',
+    'reversion_compare',
+    'mailer',
+    'djcelery',
+    'daterange_filter',
+    'social_auth',
+    'book',
+)

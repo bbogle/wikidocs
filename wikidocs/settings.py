@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'djcelery',
     'daterange_filter',
     'social_auth',
+    'gunicorn',
     'book',
 )
 
