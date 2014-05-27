@@ -99,7 +99,7 @@ class Book(models.Model):
         return PageComment.objects.filter(page__book=self).order_by("-create_time")[:limit]
 
     def recent_pages(self, limit=10):
-        return self.page_set.order_by("-modify_time")[:limit]
+        return self.page_set.filter(open_yn='Y').order_by("-modify_time")[:limit]
 
 
 def get_upload_path(instance, filename):
