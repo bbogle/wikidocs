@@ -17,13 +17,13 @@ blockquote {
     padding:5px 0;
     border:solid 1px #ddd;
 
-    border-left:solid 6px #ddd;
+    /*border-left:solid 6px #ddd;*/
     background-color: #fcfcfc;
 }
 blockquote p {
 	/*background-color: #F7F7F9;*/
     padding:5px 10px !important;
-    font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,"맑은고딕",'Malgun Gothic';
+    /*font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,"맑은고딕",'Malgun Gothic';*/
     font-size:13px !important;
     overflow-x:auto;
     padding:0;
