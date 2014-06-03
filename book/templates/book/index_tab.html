@@ -11,6 +11,10 @@
                 <img src="{{ MEDIA_URL }}/{{ book.safe_image }}" class="book-image" onclick="javascript:location.href='{{ book.get_absolute_url }}'" style="cursor:pointer" />
             </div>
             <div class="book-detail">
+                {% if book.open_yn == "N" %}
+                    <i class="glyphicon glyphicon-lock"></i>
+                {% endif %}
+
                 <a href="{{ book.get_absolute_url }}" class="book-subject">{{ book.subject }}</a>
 
                 <div>
