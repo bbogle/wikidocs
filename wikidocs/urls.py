@@ -3,6 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps import GenericSitemap
+from django.views.generic.base import RedirectView
 
 from book import views
 from book.models import Book, Page
@@ -38,6 +39,8 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': get_sitemap()}),
+
+    url(r'^apps/', RedirectView.as_view(url='/', permanent=False), name='index'),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
