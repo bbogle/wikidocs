@@ -156,7 +156,7 @@ def passwd_send(request):
         from sendmail import sendEmail
         passwd = randomString(4)
 
-        email_msg = u"위키독스 비밀번호가 초기화 되었습니다. 새 비밀번호:[%s]" % passwd
+        email_msg = u"위키독스 비밀번호가 초기화 되었습니다. 새 비밀번호:%s" % passwd
         sendEmail(email, u"위키독스 비빌번호 변경 알림", email_msg)
 
         u = User.objects.get(username=email)
