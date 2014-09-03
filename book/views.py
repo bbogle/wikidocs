@@ -97,6 +97,9 @@ def buy(request, _id):
     context ={"book": book, "error": error}
     context.update(csrf(request))
 
+    if not book.is_sell() or book.price() == 0:
+        return redirect("/book/%s" % book.id)
+
     if error: del request.session["error"]
     return render(request, 'book/buy.html', context)
 
@@ -105,6 +108,9 @@ def buy(request, _id):
 def buy_save(request):
     book_id = request.POST.get("book_id")
     book = Book.objects.get(id=book_id)
+
+    if not book.is_sell() or book.price() == 0:
+        return redirect("/book/%s" % book.id)
 
     form = BuyForm(request.POST)
     if not form.is_valid():
