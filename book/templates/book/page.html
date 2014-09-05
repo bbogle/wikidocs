@@ -40,10 +40,6 @@
             </h1>
 {#        </div>#}
 
-        {% if page.book.adv_yn == 'Y' %}
-            {{ page.book.adv_content|safe }}
-        {% endif %}
-
         <div class="page-content">
             {{ page.content|markdown:"tables,footnotes,toc,fenced_code" }}
         </div>
@@ -51,6 +47,12 @@
         <div class="muted text-right" style="font-size: 12px;margin:10px 0;">
             마지막 편집일시 : {{ page.modify_time }}
         </div>
+
+        {% if page.book.adv_yn == 'Y' %}
+            <div class="text-center">
+            {{ page.book.adv_content|safe }}
+            </div>
+        {% endif %}
 
         <a href="javascript:show_comments();" class="label label-info">댓글 {{ page.pagecomment_set.all|length }}</a>
         <a href="#myModal" data-toggle="modal" title="피드백을 남겨주세요" class="label label-info">피드백</a>
