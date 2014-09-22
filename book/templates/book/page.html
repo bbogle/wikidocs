@@ -48,7 +48,7 @@
             마지막 편집일시 : {{ page.modify_time }}
         </div>
 
-        {% if page.book.adv_yn == 'Y' %}
+        {% if page.book.adv_yn == 'Y' and not request.mobile %}
             <div style="margin:20px 0;">
             {{ page.book.adv_content|safe }}
             </div>
