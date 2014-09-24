@@ -49,6 +49,7 @@ class Book(models.Model):
     ccl_right = models.CharField(max_length=20, null=True, choices=CCL_RIGHT, verbose_name=u"저작물의 변경을 허락합니까?")
     adv_yn = models.CharField(max_length=1, default="N", choices=ADV_YN_CHOICES, verbose_name=u"광고를 표시합니까?")
     adv_content = models.TextField(null=True, blank=True, verbose_name=u"광고 내용")
+    adv_mobile_content = models.TextField(null=True, blank=True, verbose_name=u"모바일 광고 내용")
 
     def __unicode__(self):
         return self.subject
