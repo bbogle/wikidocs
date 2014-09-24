@@ -80,6 +80,19 @@
             {{ book.summary|markdown:"tables,footnotes,toc" }}
         </div>
 
+        <!-- google adsense -->
+        {% if book.adv_yn == 'Y' and not request.mobile %}
+            <div style="margin:30px 0;">
+            {{ book.adv_content|safe }}
+            </div>
+        {% endif %}
+        {% if book.adv_yn == 'Y' and request.mobile and book.adv_mobile_content %}
+            <div style="margin:20px 0;">
+            {{ book.adv_mobile_content|safe }}
+            </div>
+        {% endif %}
+        <!-- google adsense -->
+
         {% if book.recent_page_comments %}
             <a href="javascript:show_comments()" class="label label-info">최근 댓글 ({{ book.recent_page_comments|length }})</a>
         {% endif %}
