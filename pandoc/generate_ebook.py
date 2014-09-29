@@ -227,8 +227,11 @@ Copyright ⓒ 2013 %(author)s. All rights reserved.%(space)s
     # epub metadata copy
     os.system("cp -f %(PANDOC_HOME)s/metadata.xml %(MD_ROOT)s" % pandoc_info)
 
+    # copy css file
+    os.system("cp -f %(PANDOC_HOME)s/pandoc.css %(MD_ROOT)s" % pandoc_info)
+
     # make pdf
-    os.system("cd %(MD_ROOT)s;pandoc --template wikidocs.tex %(filename)s.md -o %(filename)s.pdf" % pandoc_info)
+    os.system("cd %(MD_ROOT)s;pandoc --template wikidocs.tex %(filename)s.md --css pandoc.css -o %(filename)s.pdf" % pandoc_info)
 
     # make epub title and author information
     f = open("%(MD_ROOT)s/%(filename)s.txt" % pandoc_info, "w")
