@@ -18,6 +18,16 @@
     <script type="text/javascript" src="{% static "scroll/jquery.nicescroll.js" %}"></script>
     <script type="text/javascript" src="{% static "book/js/page.js" %}"></script>
     <script>hljs.initHighlightingOnLoad();</script>
+    <!-- 수식입력 mathjax -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <!-- 수식입력 mathjax -->
 {% endblock %}
 
 {% block content %}
