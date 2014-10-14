@@ -59,7 +59,7 @@ def info(request, u_id):
     try:
         _user = User.objects.get(id=u_id)
     except User.DoesNotExist:
-        redirect("/")
+        return redirect("/")
 
     books = Book.objects.filter(user=_user, open_yn="Y").order_by("-modify_time")
     pages = Page.objects.filter(book__user=_user, book__open_yn="Y", open_yn="Y")\
