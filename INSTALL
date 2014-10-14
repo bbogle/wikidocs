@@ -1,0 +1,75 @@
+##
+## wikidocs aws install guide.
+##
+
+# ---------------------------------------------------------------------------
+# [apt-get]
+$ sudo apt-get update
+$ sudo apt-get install python-pip
+$ sudo apt-get install git
+$ sudo apt-get install postgresql
+$ sudo apt-get install postgresql-server-dev-9.3
+$ sudo apt-get install python-dev
+$ sudo apt-get install nginx
+$ sudo apt-get install redis-server
+$ sudo apt-get install libjpeg-dev
+$ sudo pip install virtualenv
+
+
+# ---------------------------------------------------------------------------
+# [virtualenv]
+$ mkdir venvs
+$ cd venvs
+$ virtualenv wikidocs
+$ cd ~
+$ vi .profile
+	alias wikidocs='. /home/ubuntu/venvs/wikidocs/bin/activate;cd /home/ubuntu/project/wikidocs'
+$ . .profile
+$ wikidocs
+
+
+# ---------------------------------------------------------------------------
+# [git]
+$ cd ~
+$ mkdir project
+$ cd project
+$ git clone https://github.com/pahkey/wikidocs.git wikidocs
+$ cd wikidocs
+$ pip install git+https://github.com/pinax/django-mailer.git
+$ pip -r pip-req.txt
+$ pip install gunicorn
+$ pip install gevent
+$ pip install -I pillow
+
+
+# ---------------------------------------------------------------------------
+# [supervisor]
+$ supervisord
+
+
+# ---------------------------------------------------------------------------
+# [nginx]
+$ sudo service nginx start
+
+
+# ---------------------------------------------------------------------------
+# [postgresql]
+$ su - postgres
+$ createdb wikidocs
+$ psql template1
+	template1=# CREATE USER wikidocs WITH PASSWORD 'wikidocs';
+	template1=# GRANT ALL PRIVILEGES ON DATABASE "wikidocs" to wikidocs;
+	template1=# \q
+$ vi /etc/postgresql/9.3/main/pg_hba.conf
+	#local   all             all                                     peer
+	local   all             all                                     md5
+$ pg_restore -Fc -C -d template1 wikidocs.YYYYMMDD.dump -U wikidocs (or superuser)
+
+
+# ---------------------------------------------------------------------------
+# [pandoc]
+$ sudo apt-get install pandoc
+$ sudo apt-get install calibre
+$ sudo apt-get install texlive-lang-cjk
+$ sudo apt-get install fonts-nanum fonts-nanum-coding
+$ sudo apt-get install ttf-unfonts-core ttf-unfonts-extra
