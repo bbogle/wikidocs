@@ -228,6 +228,12 @@ LOGGING = {
         }
     },
     'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR+'/logs/django_error.log',
+        },
+
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
@@ -236,7 +242,7 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['file'],
             'level': 'ERROR',
             'propagate': True,
         },
