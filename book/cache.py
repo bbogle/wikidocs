@@ -2,7 +2,7 @@
 import os
 import sys
 
-HOME = "/home/pahkey/project/wikidocs"
+HOME = "/home/ubuntu/project/wikidocs"
 sys.path.insert(0, HOME)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wikidocs.settings")
 

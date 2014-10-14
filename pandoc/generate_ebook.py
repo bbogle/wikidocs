@@ -6,7 +6,7 @@ import urllib
 try: from PIL import Image
 except:import Image
 
-WIKIDOCS_HOME = "/home/pahkey/project/wikidocs"
+WIKIDOCS_HOME = "/home/ubuntu/project/wikidocs"
 PANDOC_HOME = WIKIDOCS_HOME+"/pandoc"
 
 sys.path.insert(0, WIKIDOCS_HOME)

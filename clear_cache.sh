@@ -3,5 +3,5 @@
 rm -f ./cache/anon/*
 rm -f ./cache/mble/*
 
-cd /home/pahkey/project/wikidocs
-/home/pahkey/virtualenv/wikidocs/bin/python /home/pahkey/project/wikidocs/book/cache.py clearall
+cd /home/ubuntu/project/wikidocs
+/home/ubuntu/venvs/wikidocs/bin/python /home/ubuntu/project/wikidocs/book/cache.py clearall

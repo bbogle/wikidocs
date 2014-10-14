@@ -8,11 +8,11 @@ argparse==1.2.1
 billiard==2.7.3.31
 celery==3.0.21
 diff-match-patch==20120106
-distribute==0.6.28
+#distribute==0.6.28
 django-celery==3.0.17
 django-celery-with-redis==3.0
 django-daterange-filter==0.2.1
-django-mailer==0.2a1
+#django-mailer==0.2a1
 django-markdown==0.2.1
 django-redis-cache==0.10.0
 django-redis-sessions==0.4.0
