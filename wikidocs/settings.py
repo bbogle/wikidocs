@@ -158,7 +158,7 @@ EMAIL_BACKEND = "mailer.backend.DbBackend"
 DEFAULT_FROM_EMAIL = 'YOURE SMTP EMAIL'
 
 # celery & redis
-BROKER_URL = 'redis://localhost:6379/0'
+BROKER_URL = 'redis://cache-t2-micro.yzqaxj.0001.apne1.cache.amazonaws.com:6379/0'
 
 
 # ---------------------------------------------------------------------------
@@ -194,14 +194,14 @@ GOOGLE_OAUTH2_CLIENT_SECRET = 'YOUR GOOGLE_OAUTH2_CLIENT_SECRET'
 # ---------------------------------------------------------------------------
 # caches & redis
 SESSION_ENGINE = 'redis_sessions.session'
-SESSION_REDIS_HOST = 'localhost'
+SESSION_REDIS_HOST = 'cache-t2-micro.yzqaxj.0001.apne1.cache.amazonaws.com'
 SESSION_REDIS_PORT = 6379
 SESSION_REDIS_DB = 5
 
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': 'localhost:6379',
+        'LOCATION': 'cache-t2-micro.yzqaxj.0001.apne1.cache.amazonaws.com:6379',
         'OPTIONS': {
             'DB': 6,
         },
