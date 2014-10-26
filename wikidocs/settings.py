@@ -208,7 +208,9 @@ CACHES = {
         'TIMEOUT':9999999,
     },
 }
-CACHE_TIMEOUT = 0
+
+# 5 days: 60 * 60 * 24 * 5
+CACHE_TIMEOUT = 432000
 
 if os.environ.get('DEVELOPMENT', None):
     from settings_dev import *
