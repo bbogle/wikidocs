@@ -205,11 +205,11 @@ CACHES = {
         'OPTIONS': {
             'DB': 6,
         },
-        'TIMEOUT':9999999,
+        'TIMEOUT':86400,
     },
 }
 
-CACHE_TIMEOUT = 259200  # 3 days: 60 * 60 * 24 * 3
+CACHE_TIMEOUT = 86400  # 1 days: 60 * 60 * 24 * 1
 
 if os.environ.get('DEVELOPMENT', None):
     from settings_dev import *
