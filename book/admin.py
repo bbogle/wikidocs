@@ -106,7 +106,7 @@ class PageListFilter(admin.SimpleListFilter):
             result.append((book.id, _(book.subject)))
         return tuple(result)
 
-    def get_queryset(self, request, queryset):
+    def queryset(self, request, queryset):
         if not request.user.is_superuser:
             queryset = queryset.filter(book__user=request.user)
         if self.value():
