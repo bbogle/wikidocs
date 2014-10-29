@@ -251,3 +251,4 @@ LOGGING = {
 }
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
