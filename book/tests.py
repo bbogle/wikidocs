@@ -1,26 +1,31 @@
 # -*- coding: utf-8 -*-
+from django.core.urlresolvers import resolve
 
 from django.test import TestCase
-from django.test.client import Client
-from models import Book, Page, Sell
-
 from django.contrib.auth.models import User
+
+from models import Book, Page
+from book.views import index
+
+class HomePageTest(TestCase):
+    def test_root_url_resolves_to_home_page_view(self):
+        found = resolve('/')
+        self.assertEqual(found.func, index)
 
 
 class DocTest(TestCase):
     def test_docs_list(self):
         u1 = User.objects.create_user("pahkey@gmail.com", "pahkey@gmail.com", "1")
         u1.save()
-
-
         book1 = Book(subject="Jump to python", open_yn="Y", creator=u1)
         book1.save()
 
 
-    def xtest_page_parents(self):
-        book = Book(subject="Jump to python")
+    def test_page_parents(self):
+        u1 = User.objects.create_user("pahkey@gmail.com", "pahkey@gmail.com", "1")
+        u1.save()
+        book = Book(subject="Jump to python", creator=u1)
         book.save()
-
         p1 = Page(subject="p1", content="..", book=book)
         p1.save()
         p2 = Page(subject="p2", content="..", book=book, parent=p1)
