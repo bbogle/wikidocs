@@ -21,13 +21,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'django.contrib.markup',
     'django.contrib.humanize',
     'django.contrib.sitemaps',
 
-    'south',
     'reversion',
-    'reversion_compare',
     'mailer',
     'djcelery',
     'daterange_filter',
@@ -38,7 +35,7 @@ INSTALLED_APPS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'c:/github/wikidocs.db',                      # Or path to database file if using sqlite3.
+        'NAME': '/home/ubuntu/project/wikidocs/wikidocs.test.db',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'wikidocs',
         'PASSWORD': 'wikidocs',
