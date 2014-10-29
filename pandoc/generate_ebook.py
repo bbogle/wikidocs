@@ -6,6 +6,7 @@ import urllib
 try: from PIL import Image
 except:import Image
 
+
 WIKIDOCS_HOME = "/home/ubuntu/project/wikidocs"
 PANDOC_HOME = WIKIDOCS_HOME+"/pandoc"
 
@@ -279,6 +280,8 @@ def send_book_by_buy(buy_id):
 
 
 if __name__ == "__main__":
+    import django
+    django.setup()
     if len(sys.argv) >= 2:
         _which_type = sys.argv[1]
         if _which_type == "email":
