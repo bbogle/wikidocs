@@ -8,12 +8,14 @@ from django.utils.encoding import force_unicode
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from reversion_compare.admin import CompareVersionAdmin
+#from reversion_compare.admin import CompareVersionAdmin
 from book.cache import cache_clear
 from book.models import Book, Ip, Page, Sell, Buy, BookComment, PageComment
 from utils import getTree
 from tasks import make_and_send
 from daterange_filter.filter import DateRangeFilter
+
+import reversion
 
 class MarkDownEditorWidget(forms.Textarea):
     def render(self, name, value, attrs=None):
@@ -42,7 +44,7 @@ class MarkDownEditorWidget(forms.Textarea):
                 conditional_escape(force_unicode(value))))
 
 
-class BookAdmin(CompareVersionAdmin):
+class BookAdmin(reversion.VersionAdmin):
     history_latest_first = True
     ignore_duplicate_revisions = True
 
@@ -121,7 +123,7 @@ class PageForm(forms.ModelForm):
             pass
 
 
-class PageAdmin(CompareVersionAdmin):
+class PageAdmin(reversion.VersionAdmin):
     history_latest_first = True
     ignore_duplicate_revisions = True
 
@@ -179,7 +181,7 @@ class PageAdmin(CompareVersionAdmin):
 
 class BuyAdmin(admin.ModelAdmin):
     list_display =  ('book', 'buyer', 'email', 'telno', 'create_time', 'money_yn', 'send_yn')
-    readonly_fields = Buy._meta.get_all_field_names()
+    #readonly_fields = Buy._meta.get_all_field_names()
     search_fields = ['buyer', 'email', 'telno', 'book__subject']
     list_filter = (
         "send_yn",

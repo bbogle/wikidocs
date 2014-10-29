@@ -216,6 +216,7 @@ pip-log.txt
 wikidocs/secret_key.py
 .idea/
 book/migrations/
+book/south_migrations/
 cache/
 upload/
 logs/

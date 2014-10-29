@@ -1,7 +1,7 @@
 {% extends "book/base.html" %}
 
 {% load staticfiles %}
-{% load markup %}
+{% load markdown_tags %}
 {% load page_nav_tags %}
 
 {% block title %}{{ page.subject }} - {{ page.book.subject }}{% endblock %}
@@ -52,7 +52,7 @@
 {#        </div>#}
 
         <div class="page-content">
-            {{ page.content|markdown:"tables,footnotes,toc,fenced_code" }}
+            {{ page.content|my_markdown }}
         </div>
 
         <div class="muted text-right" style="font-size: 12px;margin:10px 0;">

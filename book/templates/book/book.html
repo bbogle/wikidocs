@@ -2,7 +2,7 @@
 
 {% load humanize %}
 {% load staticfiles %}
-{% load markup %}
+{% load markdown_tags %}
 {% load page_nav_tags %}
 {% load summary %}
 
@@ -77,7 +77,7 @@
         </div>
 
         <div class="page-content">
-            {{ book.summary|markdown:"tables,footnotes,toc" }}
+            {{ book.summary|my_markdown }}
         </div>
 
         <!-- google adsense -->
