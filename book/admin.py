@@ -76,7 +76,7 @@ class BookAdmin(reversion.VersionAdmin):
         obj.save()
         obj.user.add(request.user)
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         qs = super(BookAdmin, self).queryset(request)
         if request.user.is_superuser:
             return qs
@@ -106,7 +106,7 @@ class PageListFilter(admin.SimpleListFilter):
             result.append((book.id, _(book.subject)))
         return tuple(result)
 
-    def queryset(self, request, queryset):
+    def get_queryset(self, request, queryset):
         if not request.user.is_superuser:
             queryset = queryset.filter(book__user=request.user)
         if self.value():
@@ -153,7 +153,7 @@ class PageAdmin(reversion.VersionAdmin):
             "/static/myadmin/js/admin.js",
         )
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         qs = super(PageAdmin, self).queryset(request)
         if request.user.is_superuser:
             return qs
@@ -199,7 +199,7 @@ class BuyAdmin(admin.ModelAdmin):
     # def has_change_permission(self, request, obj=None):
     #     return False
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         qs = super(BuyAdmin, self).queryset(request)
         if request.user.is_superuser:
             return qs
