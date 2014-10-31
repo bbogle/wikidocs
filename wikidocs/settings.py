@@ -211,15 +211,9 @@ CACHES = {
 }
 
 CACHE_TIMEOUT = 86400  # 1 days: 60 * 60 * 24 * 1
-
-if os.environ.get('DEVELOPMENT', None):
-    from settings_dev import *
-
-try:
-    from secret_key import *
-except ImportError:
-    print "Please see README.md"
-
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+REAL=True
 
 LOGGING = {
     'version': 1,
@@ -251,7 +245,14 @@ LOGGING = {
     }
 }
 
-TEST_RUNNER = 'django.test.runner.DiscoverRunner'
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
-REAL=True
+#
+# Warning!! below setting items must be positioned at BOTTOM
+#
+if os.environ.get('DEVELOPMENT', None):
+    from settings_dev import *
+
+try:
+    from secret_key import *
+except ImportError:
+    print "Please see README.md"
