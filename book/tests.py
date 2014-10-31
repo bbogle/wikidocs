@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
+
 from django.core.urlresolvers import resolve
 from django.test import TestCase
 from django.contrib.auth.models import User
@@ -99,5 +101,14 @@ class BookTest(TestCase):
         self.assertContains(response, "p21 content")
         response = self.client.get('/%s' % p31.id)
         self.assertContains(response, "p31 content")
+
+
+class ScreenTest(TestCase):
+    def test_debug_environment(self):
+        response = self.client.get('/')
+        if settings.DEBUG:
+            self.assertContains(response, '<span class="label label-danger">DEV</span>')
+        else:
+            self.assertNotContains(response, '<span class="label label-danger">DEV</span>')
 
 

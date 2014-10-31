@@ -50,7 +50,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">WikiDocs</a>
+            <a class="navbar-brand" href="/">
+                {% if DEBUG %}
+                <span class="label label-danger">DEV</span>
+                {% endif %}
+                WikiDocs
+            </a>
         </div>
 
         <div class="navbar-collapse collapse">
