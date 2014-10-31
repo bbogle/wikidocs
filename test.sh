@@ -1,4 +1,4 @@
 #!/bin/sh
 
 export DEVELOPMENT=1
-python manage.py test
+python -W ignore::DeprecationWarning manage.py test
