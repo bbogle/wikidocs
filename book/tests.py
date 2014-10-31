@@ -106,9 +106,9 @@ class BookTest(TestCase):
 class ScreenTest(TestCase):
     def test_debug_environment(self):
         response = self.client.get('/')
-        if settings.DEBUG:
-            self.assertContains(response, '<span class="label label-danger">DEV</span>')
-        else:
+        if settings.REAL:
             self.assertNotContains(response, '<span class="label label-danger">DEV</span>')
+        else:
+            self.assertContains(response, '<span class="label label-danger">DEV</span>')
 
 
