@@ -42,18 +42,16 @@ class BuyBookTest(TestCase):
         self.assertTemplateUsed(response, 'book/buy_save.html')
 
 
-class DocTest(TestCase):
-    def test_docs_list(self):
+class BookTest(TestCase):
+    def create_book(self, subject):
         u1 = User.objects.create_user("pahkey@gmail.com", "pahkey@gmail.com", "1")
         u1.save()
-        book1 = Book(subject="Jump to python", open_yn="Y", creator=u1)
-        book1.save()
+        book = Book(subject=subject, creator=u1, open_yn="Y")
+        book.save()
+        return book
 
     def test_page_parents(self):
-        u1 = User.objects.create_user("pahkey@gmail.com", "pahkey@gmail.com", "1")
-        u1.save()
-        book = Book(subject="Jump to python", creator=u1)
-        book.save()
+        book = self.create_book("jump to python")
         p1 = Page(subject="p1", content="..", book=book)
         p1.save()
         p2 = Page(subject="p2", content="..", book=book, parent=p1)
@@ -68,3 +66,38 @@ class DocTest(TestCase):
         self.assertTrue(p1 in p3.get_parents())
         self.assertTrue(p2 in p3.get_parents())
         self.assertTrue(p1 in p4.get_parents())
+
+    def test_child_parent_open_close(self):
+        book = self.create_book("jump to python")
+
+        #
+        # parent closed
+        #
+        p1 = Page(subject="p1", content="p1 content", book=book, open_yn="N")
+        p1.save()
+        p2 = Page(subject="p2", content="p2 content", book=book, parent=p1, open_yn="Y")
+        p2.save()
+        p3 = Page(subject="p3", content="p3 content", book=book, parent=p2, open_yn="Y")
+        p3.save()
+
+        response = self.client.get('/%s' % p2.id)
+        self.assertRedirects(response, '/')
+        response = self.client.get('/%s' % p3.id)
+        self.assertRedirects(response, '/')
+
+        #
+        # parent not closed
+        #
+        p11 = Page(subject="p11", content="p11 content", book=book, open_yn="Y")
+        p11.save()
+        p21 = Page(subject="p21", content="p21 content", book=book, parent=p11, open_yn="Y")
+        p21.save()
+        p31 = Page(subject="p31", content="p31 content", book=book, parent=p21, open_yn="Y")
+        p31.save()
+
+        response = self.client.get('/%s' % p21.id)
+        self.assertContains(response, "p21 content")
+        response = self.client.get('/%s' % p31.id)
+        self.assertContains(response, "p31 content")
+
+

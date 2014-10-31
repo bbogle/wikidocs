@@ -173,6 +173,11 @@ def check_auth(request, book, page=None):
         elif request.user not in book.user.all():
             raise Http404
 
+    if page and page.open_yn == "Y":
+        for p in page.get_parents():
+            if p.open_yn == "N":
+                raise Http404
+
 
 def getToc(request, book):
     isAuthor = request.user in book.user.all()
