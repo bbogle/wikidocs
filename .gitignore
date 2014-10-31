@@ -224,3 +224,4 @@ pandoc/gen/
 pandoc/md/
 reload
 book/static/admin/
+wikidocs.test.db

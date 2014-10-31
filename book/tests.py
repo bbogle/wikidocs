@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.core.urlresolvers import resolve
-
 from django.test import TestCase
 from django.contrib.auth.models import User
 
 from models import Book, Page, Buy, Sell
 from book.views import index
+
 
 class HomePageTest(TestCase):
     def test_root_url_resolves_to_home_page_view(self):
@@ -48,7 +48,6 @@ class DocTest(TestCase):
         u1.save()
         book1 = Book(subject="Jump to python", open_yn="Y", creator=u1)
         book1.save()
-
 
     def test_page_parents(self):
         u1 = User.objects.create_user("pahkey@gmail.com", "pahkey@gmail.com", "1")
