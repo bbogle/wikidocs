@@ -22,7 +22,9 @@
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-        displayAlign: "left"
+        displayAlign: "left",
+        processClass: "mathjax",
+        ignoreClass: "no-mathjax"
     });
     </script>
     <script type="text/javascript"
@@ -51,7 +53,7 @@
             </h1>
 {#        </div>#}
 
-        <div class="page-content">
+        <div class="page-content mathjax">
             {{ page.content|my_markdown }}
         </div>
 
