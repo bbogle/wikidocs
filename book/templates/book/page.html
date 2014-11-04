@@ -22,9 +22,7 @@
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-        displayAlign: "left",
-        processClass: "mathjax",
-        ignoreClass: "no-mathjax"
+        displayAlign: "left"
     });
     </script>
     <script type="text/javascript"
@@ -34,7 +32,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="content row no-mathjax">
+<div class="content row tex2jax_ignore">
     {# 목차#}
     <div class="col-md-3">
         {% include "book/include/toc.html" %}
@@ -53,7 +51,7 @@
             </h1>
 {#        </div>#}
 
-        <div class="page-content mathjax">
+        <div class="page-content tex2jax_process">
             {{ page.content|my_markdown }}
         </div>
 
