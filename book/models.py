@@ -140,7 +140,7 @@ class Page(models.Model):
         return "/{0}".format(self.id)
 
     def _make_parents(self, page, pages=None):
-        if page.parent:
+        if page.parent and page.parent != page:
             pages.insert(0, page.parent)
             self._make_parents(page.parent, pages)
 
