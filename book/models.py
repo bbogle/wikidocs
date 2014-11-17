@@ -55,8 +55,9 @@ class Book(models.Model):
         return self.subject
 
     def ccl(self):
-        result = self.ccl_left + self.ccl_right
-        if result[-1] == "-": result = result[:-1]
+        nvl = lambda s: '' if s is None else str(s)
+        result = nvl(self.ccl_left) + nvl(self.ccl_right)
+        if result and result[-1] == "-": result = result[:-1]
         return result
 
     def price(self):
