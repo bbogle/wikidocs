@@ -20,7 +20,7 @@
                 <div>
                     -
                     {% for user in book.user.all %}
-                        <a href="/profile/{{ user.id }}">{{ user.first_name }}</a>{% if not forloop.last %}, {% endif %}
+                        {{ user.first_name }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </div>
 

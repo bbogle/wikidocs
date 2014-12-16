@@ -5,7 +5,7 @@
         <span style="font-size:11px;color:#888;">
             -
             {% if comment.user %}
-                <a href="/profile/{{ comment.user.id }}">{{ comment.user.first_name }}</a>,
+                {{ comment.user.first_name }},
             {% else %}
                 {{ comment.name }},
             {% endif %}
