@@ -20,19 +20,7 @@
             <div class="question-line">
 
                 <div class="row">
-                    {% if not request.mobile %}
-                        <!--
-                        <div class="col-md-2">
-                            <div class="book-image-box">
-                                <img src="{{ MEDIA_URL }}/{{ comment.page.book.safe_image }}" class="book-image"
-                                     onclick="javascript:location.href='{{ comment.page.get_absolute_url }}#comment_{{ comment.id }}'"
-                                     title="{{ comment.page.book.subject }}"
-                                     style="cursor:pointer"/>
-                            </div>
-                        </div>
-                        -->
-                    {% endif %}
-                    <div class="col-md-10">
+                    <div class="col-md-12">
                         <div>
                             <a class="question-subject" href="{{ comment.page.get_absolute_url }}#comment_{{ comment.id }}">{{ comment.page.subject }}</a>
                             <span class="text-muted" style="margin:0 5px;">:</span>
@@ -51,7 +39,7 @@
 
         {% empty %}
             <div class="well">
-                아직 구경만 하고 있어요
+                작성한 댓글이 없습니다.
             </div>
         {% endfor %}
 
