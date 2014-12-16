@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from book.cache import cache_remove
 from book.models import Page, Book, PageComment
 from book.views import my_render, update_context
 
@@ -126,3 +127,15 @@ def comment(request):
          }
     update_context(request, c)
     return my_render(request, 'profile/profile_comment.html', c)
+
+
+@login_required
+def remove_comment(request):
+    comment_id = request.POST.get("comment_id")
+    comment = PageComment.objects.get(id=comment_id)
+    page = comment.page
+    if request.user == comment.user:
+        comment.delete()
+        cache_remove("book_%s" % page.book.id)
+        cache_remove(page.id)
+    return redirect('book.profile_views.comment')

@@ -4,11 +4,13 @@
 
 {% block edit_js %}
     <script type="text/javascript" src="{% static "pagination/jquery.pagination.js" %}"></script>
-    <script type="text/javascript" src="{% static "profile/js/info.js" %}"></script>
+    <script type="text/javascript" src="{% static "apprise/apprise-1.5.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "profile/js/comment.js" %}"></script>
 {% endblock %}
 
 {% block edit_css %}
     <link type="text/css" href="{% static "pagination/pagination.css" %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static  "apprise/apprise.min.css" %}" rel="stylesheet"  />
     <link type="text/css" href="{% static "profile/css/info.css" %}" rel="stylesheet"/>
 {% endblock %}
 
@@ -33,7 +35,8 @@
                         <div class="question-summary" style="white-space:pre-wrap;">{{ comment.content|escape|urlize }}</div>
 
                         <div class="info-timesince">
-                            {{ comment.create_time }}
+                            {{ comment.create_time }},
+                            <a href="javascript:remove_comment('{{ comment.id }}')">삭제</a>
                         </div>
                     </div>
                 </div>
@@ -58,4 +61,8 @@
         </div>
 
     </div>
+
+    <form name="commentForm" id="commentForm" method="post" action="/profile/edit/comment/remove">
+        <input type="hidden" name="comment_id" id="comment_id" />
+    </form>
 {% endblock %}
