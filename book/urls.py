@@ -42,6 +42,8 @@ urlpatterns = patterns('',
     url(r'^profile/(\d+)$', 'book.profile_views.info'),
     url(r'^profile/edit/base$', 'book.profile_views.edit_base'),
     url(r'^profile/edit/password$', 'book.profile_views.edit_password'),
+    url(r'^profile/edit/book$', 'book.profile_views.book'),
+    url(r'^profile/edit/comment$', 'book.profile_views.comment'),
 
     # help
     url(r'^help/(\w+)$', views.help),

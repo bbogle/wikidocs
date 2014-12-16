@@ -88,3 +88,41 @@ def info(request, u_id):
          }
     update_context(request, c)
     return my_render(request, 'profile/profile_info.html', c)
+
+
+@login_required
+def book(request):
+    """
+    book list
+    """
+    books = Book.objects.filter(user=request.user).order_by("-modify_time")
+
+    c = {"books":books,
+         }
+    update_context(request, c)
+    return my_render(request, 'profile/profile_book.html', c)
+
+
+@login_required
+def comment(request):
+    """
+    comment list
+    """
+    comments = PageComment.objects.filter(user=request.user).order_by("-create_time")
+    total_count = comments.count()
+    page = int(request.POST.get("page", "1"))
+    paginator = Paginator(comments, PER_PAGE)
+
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+
+    c = {"comments":comments,
+         "per_page":PER_PAGE,
+         "total_count":total_count,
+         }
+    update_context(request, c)
+    return my_render(request, 'profile/profile_comment.html', c)

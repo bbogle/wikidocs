@@ -1,0 +1,70 @@
+{% extends "profile/profile_layout.html" %}
+{% load staticfiles %}
+{% load summary %}
+
+{% block edit_js %}
+    <script type="text/javascript" src="{% static "pagination/jquery.pagination.js" %}"></script>
+    <script type="text/javascript" src="{% static "profile/js/info.js" %}"></script>
+{% endblock %}
+
+{% block edit_css %}
+    <link type="text/css" href="{% static "pagination/pagination.css" %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static "profile/css/info.css" %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block profile_edit_content %}
+    {% include "book/include/message.html" %}
+
+    <div id="recent_comments" class="tab-pane active">
+        {% for comment in comments %}
+            <div class="question-line">
+
+                <div class="row">
+                    {% if not request.mobile %}
+                        <!--
+                        <div class="col-md-2">
+                            <div class="book-image-box">
+                                <img src="{{ MEDIA_URL }}/{{ comment.page.book.safe_image }}" class="book-image"
+                                     onclick="javascript:location.href='{{ comment.page.get_absolute_url }}#comment_{{ comment.id }}'"
+                                     title="{{ comment.page.book.subject }}"
+                                     style="cursor:pointer"/>
+                            </div>
+                        </div>
+                        -->
+                    {% endif %}
+                    <div class="col-md-10">
+                        <div>
+                            <a class="question-subject" href="{{ comment.page.get_absolute_url }}#comment_{{ comment.id }}">{{ comment.page.subject }}</a>
+                            <span class="text-muted" style="margin:0 5px;">:</span>
+                            <a href="{{ comment.page.book.get_absolute_url }}">{{ comment.page.book.subject }}</a>
+                        </div>
+
+                        <div class="question-summary" style="white-space:pre-wrap;">{{ comment.content|escape|urlize }}</div>
+
+                        <div class="info-timesince">
+                            {{ comment.create_time }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        {% empty %}
+            <div class="well">
+                아직 구경만 하고 있어요
+            </div>
+        {% endfor %}
+
+
+        <div class="row page-area">
+            <form name="hiddenForm" id="hiddenForm" method="post" action="{{ request.path }}">
+                <input type="hidden" name="total_count" id="total_count" value="{{ total_count }}" />
+                <input type="hidden" name="current_page" id="current_page" value="{{ comments.number }}" />
+                <input type="hidden" name="per_page" id="per_page" value="{{ per_page }}" />
+                <input type="hidden" name="page" id="page" />
+            </form>
+            <div id="pagination" class="col-md-12" style="margin-top:-10px;"></div>
+        </div>
+
+    </div>
+{% endblock %}

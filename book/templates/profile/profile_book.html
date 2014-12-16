@@ -1,0 +1,66 @@
+{% extends "profile/profile_layout.html" %}
+{% load staticfiles %}
+{% load summary %}
+
+{% block edit_js %}
+    <script type="text/javascript" src="{% static "pagination/jquery.pagination.js" %}"></script>
+    <script type="text/javascript" src="{% static "profile/js/info.js" %}"></script>
+{% endblock %}
+
+{% block edit_css %}
+    <link type="text/css" href="{% static "pagination/pagination.css" %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static "profile/css/info.css" %}" rel="stylesheet"/>
+{% endblock %}
+
+
+{% block profile_edit_content %}
+    {% include "book/include/message.html" %}
+
+    <div id="recent_books" class="tab-pane">
+        {% for book in books %}
+            <div class="question-line">
+                <div class="row">
+                    {% if not request.mobile %}
+                        <div class="col-md-2">
+                            <div class="book-image-box">
+                                <img src="{{ MEDIA_URL }}/{{ book.safe_image }}" class="book-image"
+                                     onclick="javascript:location.href='{{ book.get_absolute_url }}'"
+                                     style="cursor:pointer"/>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="col-md-10">
+                        <div>
+                            <a href="/book/{{ book.id }}" class="question-subject">{{ book.subject }}</a>
+                        </div>
+
+                        <div class="question-summary">
+                            저자: {{ book.get_plain_authors }}
+                        </div>
+
+                        {% if request.mobile %}
+                            <div class="question-summary">
+                                {{ book.summary|summary|truncatechars:"80" }}
+                            </div>
+                        {% else %}
+                            <div class="question-summary">
+                                {{ book.summary|summary|truncatechars:"160" }}
+                            </div>
+                        {% endif %}
+
+                        <div class="info-timesince">
+                            수정: {{ book.modify_time }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="well">
+                작성중인 책이 없습니다.
+            </div>
+        {% endfor %}
+        <a href="/edit/book/new" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus"></i> 새 책 만들기</a>
+    </div>
+
+
+{% endblock %}

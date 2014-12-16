@@ -4,13 +4,14 @@
 
 {% block css %}
     <link type="text/css" href="{% static "common/css/sidenav.css" %}" rel="stylesheet"/>
+    {% block edit_css %}{% endblock %}
 {% endblock %}
-{% block edit_css %}{% endblock %}
+
 
 {% block js %}
     <script type="text/javascript" src="{% static "common/js/sidenav.js" %}"></script>
+    {% block edit_js %}{% endblock %}
 {% endblock %}
-{% block edit_js %}{% endblock %}
 
 {% block content %}
     <div class="content row">
