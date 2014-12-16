@@ -16,7 +16,9 @@
 {% block profile_edit_content %}
     {% include "book/include/message.html" %}
 
-    <div id="recent_books" class="tab-pane">
+    <strong>나의 책</strong>
+    <hr />
+    <div id="recent_books">
         {% for book in books %}
             <div class="question-line">
                 <div class="row">
