@@ -58,7 +58,6 @@
                 <div class="row">
                     최종 편집일시 :
                     {{ book.last_modify_time }}
-                    <a href="/book/{{ book.id }}/rss/" class="label label-warning"><span class="glyphicon glyphicon-time"></span> 최근변경 RSS</a>
                 </div>
                 <div class="row">
                     저작권 :
@@ -100,6 +99,7 @@
 
         {% if book.recent_pages %}
             <a href="javascript:show_pages()" class="label label-info">최근 수정글 ({{ book.recent_pages|length }})</a>
+            <a href="/book/{{ book.id }}/rss/" class="label label-warning"><span class="glyphicon glyphicon-time"></span> 최근변경 RSS</a>
         {% endif %}
 
         {% if book.recent_page_comments %}
