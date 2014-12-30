@@ -73,6 +73,9 @@
                 <div class="row" style="margin-top:5px;">
                     <a href="javascript:recommend_book('{{ book.id }}');" class="btn btn-default btn-xs" title="추천"><i class="glyphicon glyphicon-thumbs-up"></i> <strong>{{ book.recommend.count|intcomma }}</strong> 명이 추천</a>
                 </div>
+                <div class="row" style="margin-top:5px;">
+                    <a href="/book/{{ book.id }}/rss/" class="label label-warning"><span class="glyphicon glyphicon-time"></span> 최근변경 RSS</a>
+                </div>
             </div>
         </div>
 

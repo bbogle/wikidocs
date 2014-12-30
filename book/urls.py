@@ -3,11 +3,13 @@ from django.conf.urls import patterns, url
 from book import views
 from book import auth_views as auth
 from book import old_views as old
+from book.feeds import BookFeed
 
 urlpatterns = patterns('',
     # index
     url(r'^$', views.index, name='index'),
     url(r'^tab/(\w+)$', views.index_tab),
+    url(r'^book/(?P<book_id>[0-9]+)/rss/$', BookFeed()),
 
     # book
     url(r'^book/(\d+)$', views.book, name='book'),
